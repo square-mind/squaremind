@@ -105,8 +105,8 @@ func runDemo(cmd *cobra.Command, args []string) {
 	spawnedAgents := make([]*agent.Agent, 0)
 
 	for _, agentDef := range agents {
-		spinner := cli.NewSpinner(fmt.Sprintf("Spawning %s...", agentDef.name))
-		spinner.Start()
+		spawnSpinner := cli.NewSpinner(fmt.Sprintf("Spawning %s...", agentDef.name))
+		spawnSpinner.Start()
 		time.Sleep(300 * time.Millisecond)
 
 		a, err := agent.NewAgent(agent.AgentConfig{
@@ -116,14 +116,14 @@ func runDemo(cmd *cobra.Command, args []string) {
 			Model:        string(llm.DefaultModel),
 		})
 		if err != nil {
-			spinner.Stop(false)
+			spawnSpinner.Stop(false)
 			fmt.Println(cli.Error(fmt.Sprintf("  Failed to spawn agent: %v", err)))
 			continue
 		}
 
-		c.Join(a)
+		_ = c.Join(a)
 		spawnedAgents = append(spawnedAgents, a)
-		spinner.StopWithMessage(true, fmt.Sprintf("Spawned %s%s%s (%s)", cli.Bold+cli.BrightGreen, agentDef.name, cli.Reset, agentDef.desc))
+		spawnSpinner.StopWithMessage(true, fmt.Sprintf("Spawned %s%s%s (%s)", cli.Bold+cli.BrightGreen, agentDef.name, cli.Reset, agentDef.desc))
 
 		// Show agent details
 		capStrs := make([]string, len(agentDef.caps))

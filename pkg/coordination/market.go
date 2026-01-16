@@ -188,7 +188,7 @@ func (m *TaskMarket) AssignTask(
 				ReputationStake: a.Reputation.Overall * 0.1, // Stake 10% of reputation
 				EstimatedTime:   estimateTime(task, score),
 			}
-			m.SubmitBid(bid)
+			_ = m.SubmitBid(bid)
 		}
 	}
 

@@ -165,7 +165,7 @@ var runCmd = &cobra.Command{
 		fmt.Println("\n  Starting Squaremind collective...")
 		fmt.Printf("  Name: %s\n", activeCollective.Name)
 		fmt.Printf("  Agents: %d\n", activeCollective.Size())
-		fmt.Println("  Press Ctrl+C to stop\n")
+		fmt.Println("  Press Ctrl+C to stop")
 
 		// Wait for shutdown
 		<-sigChan

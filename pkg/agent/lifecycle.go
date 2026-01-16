@@ -53,7 +53,7 @@ func (lm *LifecycleManager) Spawn(ctx context.Context, name string, capabilities
 
 	// Start agent
 	if err := agent.Start(ctx); err != nil {
-		lm.runtime.Unregister(agent.Identity.SID)
+		_ = lm.runtime.Unregister(agent.Identity.SID)
 		return nil, fmt.Errorf("failed to start agent: %w", err)
 	}
 
@@ -91,7 +91,7 @@ func (lm *LifecycleManager) SpawnChild(ctx context.Context, parent *Agent, name 
 
 	// Start agent
 	if err := agent.Start(ctx); err != nil {
-		lm.runtime.Unregister(agent.Identity.SID)
+		_ = lm.runtime.Unregister(agent.Identity.SID)
 		return nil, fmt.Errorf("failed to start agent: %w", err)
 	}
 
@@ -129,7 +129,7 @@ func (lm *LifecycleManager) Terminate(sid string) error {
 // TerminateAll terminates all agents
 func (lm *LifecycleManager) TerminateAll() {
 	for _, agent := range lm.runtime.ListAgents() {
-		lm.Terminate(agent.Identity.SID)
+		_ = lm.Terminate(agent.Identity.SID)
 	}
 }
 

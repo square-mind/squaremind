@@ -46,13 +46,13 @@ func main() {
 	var provider llm.Provider
 	if apiKey := os.Getenv("ANTHROPIC_API_KEY"); apiKey != "" {
 		provider = llm.NewClaudeProvider(apiKey)
-		fmt.Println("Using Claude API\n")
+		fmt.Println("Using Claude API")
 	} else if apiKey := os.Getenv("OPENAI_API_KEY"); apiKey != "" {
 		provider = llm.NewOpenAIProvider(apiKey)
-		fmt.Println("Using OpenAI API\n")
+		fmt.Println("Using OpenAI API")
 	} else {
 		fmt.Println("No API key set - using simulated responses")
-		fmt.Println("Set ANTHROPIC_API_KEY or OPENAI_API_KEY for real LLM responses\n")
+		fmt.Println("Set ANTHROPIC_API_KEY or OPENAI_API_KEY for real LLM responses")
 	}
 
 	// Spawn specialized agents
@@ -93,7 +93,7 @@ func main() {
 		},
 	}
 
-	fmt.Println("\nSpawning agents...\n")
+	fmt.Println("\nSpawning agents...")
 	for _, agentDef := range agents {
 		a, err := agent.NewAgent(agent.AgentConfig{
 			Name:         agentDef.name,

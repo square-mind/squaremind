@@ -126,7 +126,7 @@ func (c *ConsensusEngine) Propose(ctx context.Context, proposerSID string, cType
 	c.mu.Unlock()
 
 	// Proposer automatically votes yes
-	c.SubmitVote(Vote{
+	_ = c.SubmitVote(Vote{
 		AgentSID:   proposerSID,
 		ProposalID: proposal.ID,
 		Value:      true,

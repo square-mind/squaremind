@@ -185,7 +185,9 @@ func (c *Collective) Submit(task *agent.Task) (*agent.TaskResult, error) {
 
 // SubmitAsync submits a task without waiting for result
 func (c *Collective) SubmitAsync(task *agent.Task) (string, error) {
-	go c.Submit(task)
+	go func() {
+		_, _ = c.Submit(task)
+	}()
 	return task.ID, nil
 }
 

@@ -97,8 +97,8 @@ func TestCollective_JoinFull(t *testing.T) {
 	a2, _ := agent.NewAgent(agent.AgentConfig{Name: "Agent2", Capabilities: []identity.CapabilityType{identity.CapCodeWrite}})
 	a3, _ := agent.NewAgent(agent.AgentConfig{Name: "Agent3", Capabilities: []identity.CapabilityType{identity.CapCodeWrite}})
 
-	c.Join(a1)
-	c.Join(a2)
+	_ = c.Join(a1)
+	_ = c.Join(a2)
 
 	err := c.Join(a3)
 	if err != ErrCollectiveFull {
@@ -121,8 +121,8 @@ func TestCollective_GetAgents(t *testing.T) {
 	a1, _ := agent.NewAgent(agent.AgentConfig{Name: "Agent1", Capabilities: []identity.CapabilityType{identity.CapCodeWrite}})
 	a2, _ := agent.NewAgent(agent.AgentConfig{Name: "Agent2", Capabilities: []identity.CapabilityType{identity.CapCodeReview}})
 
-	c.Join(a1)
-	c.Join(a2)
+	_ = c.Join(a1)
+	_ = c.Join(a2)
 
 	agents := c.GetAgents()
 	if len(agents) != 2 {
@@ -134,7 +134,7 @@ func TestCollective_Stats(t *testing.T) {
 	c := NewCollective("TestCollective", DefaultCollectiveConfig())
 
 	a1, _ := agent.NewAgent(agent.AgentConfig{Name: "Agent1", Capabilities: []identity.CapabilityType{identity.CapCodeWrite}})
-	c.Join(a1)
+	_ = c.Join(a1)
 
 	stats := c.Stats()
 
@@ -158,7 +158,7 @@ func TestCollective_StartStop(t *testing.T) {
 		Name:         "Agent1",
 		Capabilities: []identity.CapabilityType{identity.CapCodeWrite},
 	})
-	c.Join(a)
+	_ = c.Join(a)
 
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()

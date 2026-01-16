@@ -189,7 +189,7 @@ func TestAgentMemory(t *testing.T) {
 
 	// Test Consolidate
 	mem.Consolidate()
-	val, ok = mem.Recall("key1")
+	_, ok = mem.Recall("key1")
 	if !ok {
 		t.Error("Should find value in long-term memory after consolidation")
 	}

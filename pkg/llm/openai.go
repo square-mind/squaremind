@@ -81,10 +81,7 @@ func (p *OpenAIProvider) Complete(ctx context.Context, req CompletionRequest) (*
 func (p *OpenAIProvider) Chat(ctx context.Context, req ChatRequest) (*CompletionResponse, error) {
 	messages := make([]openaiMessage, len(req.Messages))
 	for i, m := range req.Messages {
-		messages[i] = openaiMessage{
-			Role:    m.Role,
-			Content: m.Content,
-		}
+		messages[i] = openaiMessage(m)
 	}
 
 	return p.doRequest(ctx, req.Model, messages, req.MaxTokens, req.Temperature, req.Stop)

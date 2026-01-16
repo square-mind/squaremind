@@ -73,7 +73,7 @@ func TestConsensusEngine_CheckConsensus_Accepted(t *testing.T) {
 	round, _ := ce.Propose(ctx, "agent-1", ConsensusTypeTaskAssignment, nil)
 
 	// Add more votes to reach threshold (67% of 3 = 2 votes needed)
-	ce.SubmitVote(Vote{AgentSID: "agent-2", ProposalID: round.Proposal.ID, Value: true})
+	_ = ce.SubmitVote(Vote{AgentSID: "agent-2", ProposalID: round.Proposal.ID, Value: true})
 
 	reached, result := ce.CheckConsensus(round.Proposal.ID, 3)
 
@@ -93,8 +93,8 @@ func TestConsensusEngine_CheckConsensus_Rejected(t *testing.T) {
 	round, _ := ce.Propose(ctx, "agent-1", ConsensusTypeTaskAssignment, nil)
 
 	// Add reject votes
-	ce.SubmitVote(Vote{AgentSID: "agent-2", ProposalID: round.Proposal.ID, Value: false})
-	ce.SubmitVote(Vote{AgentSID: "agent-3", ProposalID: round.Proposal.ID, Value: false})
+	_ = ce.SubmitVote(Vote{AgentSID: "agent-2", ProposalID: round.Proposal.ID, Value: false})
+	_ = ce.SubmitVote(Vote{AgentSID: "agent-3", ProposalID: round.Proposal.ID, Value: false})
 
 	reached, result := ce.CheckConsensus(round.Proposal.ID, 3)
 

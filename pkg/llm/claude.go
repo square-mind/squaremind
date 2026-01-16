@@ -158,10 +158,7 @@ func (p *ClaudeProvider) Chat(ctx context.Context, req ChatRequest) (*Completion
 			system = msg.Content
 			continue
 		}
-		messages = append(messages, claudeMessage{
-			Role:    msg.Role,
-			Content: msg.Content,
-		})
+		messages = append(messages, claudeMessage(msg))
 	}
 
 	claudeReq := claudeRequest{
