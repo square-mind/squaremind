@@ -45,12 +45,12 @@ type Vote struct {
 
 // ConsensusRound represents a single round of consensus
 type ConsensusRound struct {
-	Proposal  *Proposal          `json:"proposal"`
-	Votes     map[string]*Vote   `json:"votes"` // SID -> Vote
-	Threshold float64            `json:"threshold"`
-	Timeout   time.Duration      `json:"timeout"`
-	StartedAt time.Time          `json:"started_at"`
-	Result    string             `json:"result"` // "pending", "accepted", "rejected", "timeout"
+	Proposal  *Proposal        `json:"proposal"`
+	Votes     map[string]*Vote `json:"votes"` // SID -> Vote
+	Threshold float64          `json:"threshold"`
+	Timeout   time.Duration    `json:"timeout"`
+	StartedAt time.Time        `json:"started_at"`
+	Result    string           `json:"result"` // "pending", "accepted", "rejected", "timeout"
 }
 
 // ConsensusEngine implements PBFT-style consensus

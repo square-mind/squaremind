@@ -27,7 +27,7 @@ const (
 type Message struct {
 	ID        string      `json:"id"`
 	Type      MessageType `json:"type"`
-	From      string      `json:"from"`    // Sender SID
+	From      string      `json:"from"` // Sender SID
 	Payload   interface{} `json:"payload"`
 	Timestamp time.Time   `json:"timestamp"`
 	TTL       int         `json:"ttl"` // Hops remaining
