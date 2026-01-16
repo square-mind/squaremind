@@ -84,10 +84,10 @@ type KnowledgeNode struct {
 
 // KnowledgeEdge represents an edge in the knowledge graph
 type KnowledgeEdge struct {
-	From      string                 `json:"from"`
-	To        string                 `json:"to"`
-	Type      string                 `json:"type"`
-	Weight    float64                `json:"weight"`
+	From       string                 `json:"from"`
+	To         string                 `json:"to"`
+	Type       string                 `json:"type"`
+	Weight     float64                `json:"weight"`
 	Properties map[string]interface{} `json:"properties"`
 }
 

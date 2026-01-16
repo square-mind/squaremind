@@ -241,9 +241,9 @@ func (g *GossipProtocol) SetFanout(fanout int) {
 
 // Stats returns gossip protocol statistics
 type GossipStats struct {
-	PeerCount     int
-	SeenMessages  int
-	HandlerCount  int
+	PeerCount    int
+	SeenMessages int
+	HandlerCount int
 }
 
 // Stats returns current gossip statistics

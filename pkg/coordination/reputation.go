@@ -11,8 +11,8 @@ import (
 type ReputationRegistry struct {
 	mu sync.RWMutex
 
-	scores map[string]*agent.Reputation // SID -> Reputation
-	history map[string][]ReputationEvent // SID -> Events
+	scores  map[string]*agent.Reputation  // SID -> Reputation
+	history map[string][]ReputationEvent  // SID -> Events
 }
 
 // ReputationEvent represents a reputation change event

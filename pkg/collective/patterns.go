@@ -13,10 +13,10 @@ import (
 type SwarmPattern string
 
 const (
-	PatternStigmergy      SwarmPattern = "stigmergy"       // Indirect coordination through environment
-	PatternQuorumSensing  SwarmPattern = "quorum_sensing"  // Behavior based on collective size
-	PatternChemotaxis     SwarmPattern = "chemotaxis"      // Movement toward/away from signals
-	PatternDivisionOfLabor SwarmPattern = "division_of_labor" // Dynamic role specialization
+	PatternStigmergy         SwarmPattern = "stigmergy"          // Indirect coordination through environment
+	PatternQuorumSensing     SwarmPattern = "quorum_sensing"     // Behavior based on collective size
+	PatternChemotaxis        SwarmPattern = "chemotaxis"         // Movement toward/away from signals
+	PatternDivisionOfLabor   SwarmPattern = "division_of_labor"  // Dynamic role specialization
 	PatternSwarmOptimization SwarmPattern = "swarm_optimization" // Collective search for optima
 )
 
@@ -187,7 +187,7 @@ type EmergentBehavior struct {
 type EmergentBehaviorMonitor struct {
 	mu sync.RWMutex
 
-	behaviors []EmergentBehavior
+	behaviors  []EmergentBehavior
 	collective *Collective
 }
 

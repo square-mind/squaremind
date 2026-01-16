@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	ErrConsensusTimeout = errors.New("consensus timeout")
+	ErrConsensusTimeout  = errors.New("consensus timeout")
 	ErrInsufficientVotes = errors.New("insufficient votes for consensus")
 )
 
@@ -18,9 +18,9 @@ var (
 type ConsensusType string
 
 const (
-	ConsensusTypeTaskAssignment ConsensusType = "task_assignment"
-	ConsensusTypeAgentSpawn     ConsensusType = "agent_spawn"
-	ConsensusTypeAgentTerminate ConsensusType = "agent_terminate"
+	ConsensusTypeTaskAssignment  ConsensusType = "task_assignment"
+	ConsensusTypeAgentSpawn      ConsensusType = "agent_spawn"
+	ConsensusTypeAgentTerminate  ConsensusType = "agent_terminate"
 	ConsensusTypeParameterChange ConsensusType = "parameter_change"
 )
 
@@ -58,7 +58,7 @@ type ConsensusEngine struct {
 	mu sync.RWMutex
 
 	rounds    map[string]*ConsensusRound // ProposalID -> Round
-	threshold float64                     // Consensus threshold (e.g., 0.67 for 2/3)
+	threshold float64                    // Consensus threshold (e.g., 0.67 for 2/3)
 	timeout   time.Duration
 
 	// Callbacks
