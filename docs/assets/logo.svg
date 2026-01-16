@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8b5cf6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#a855f7;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Outer square -->
+  <rect x="10" y="10" width="100" height="100" rx="12" ry="12" fill="url(#grad1)"/>
+
+  <!-- Inner square (mind) -->
+  <rect x="30" y="30" width="60" height="60" rx="8" ry="8" fill="url(#grad2)"/>
+
+  <!-- Center dot (consciousness) -->
+  <circle cx="60" cy="60" r="12" fill="white"/>
+
+  <!-- Connection lines (neural network) -->
+  <line x1="60" y1="48" x2="60" y2="30" stroke="white" stroke-width="2" opacity="0.6"/>
+  <line x1="60" y1="72" x2="60" y2="90" stroke="white" stroke-width="2" opacity="0.6"/>
+  <line x1="48" y1="60" x2="30" y2="60" stroke="white" stroke-width="2" opacity="0.6"/>
+  <line x1="72" y1="60" x2="90" y2="60" stroke="white" stroke-width="2" opacity="0.6"/>
+
+  <!-- Corner nodes (agents) -->
+  <circle cx="30" cy="30" r="5" fill="white" opacity="0.8"/>
+  <circle cx="90" cy="30" r="5" fill="white" opacity="0.8"/>
+  <circle cx="30" cy="90" r="5" fill="white" opacity="0.8"/>
+  <circle cx="90" cy="90" r="5" fill="white" opacity="0.8"/>
+
+  <!-- Diagonal connections -->
+  <line x1="35" y1="35" x2="52" y2="52" stroke="white" stroke-width="1.5" opacity="0.4"/>
+  <line x1="85" y1="35" x2="68" y2="52" stroke="white" stroke-width="1.5" opacity="0.4"/>
+  <line x1="35" y1="85" x2="52" y2="68" stroke="white" stroke-width="1.5" opacity="0.4"/>
+  <line x1="85" y1="85" x2="68" y2="68" stroke="white" stroke-width="1.5" opacity="0.4"/>
+</svg>

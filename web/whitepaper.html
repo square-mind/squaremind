@@ -1,0 +1,1815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thesis | Squaremind: Toward Collective Machine Intelligence</title>
+    <meta name="description" content="A technical thesis on decentralized agent coordination and the emergence of artificial general intelligence. Squaremind introduces a novel architecture for autonomous AI collectives.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Squaremind Thesis | Toward Collective Machine Intelligence">
+    <meta property="og:description" content="A technical thesis on decentralized agent coordination and the emergence of artificial general intelligence.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://squaremind.xyz/whitepaper">
+    <meta property="og:image" content="https://squaremind.xyz/og-image.svg">
+
+    <!-- X -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@squaremindai">
+    <meta name="twitter:title" content="Squaremind Thesis | Toward Collective Machine Intelligence">
+    <meta name="twitter:description" content="A technical thesis on decentralized agent coordination and the emergence of artificial general intelligence.">
+    <meta name="twitter:image" content="https://squaremind.xyz/og-image.svg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-card: #111111;
+            --bg-card-hover: #161616;
+            --border: #1a1a1a;
+            --border-hover: #2a2a2a;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --green-500: #22C55E;
+            --green-400: #4ade80;
+            --green-600: #16a34a;
+            --green-900: #14532d;
+            --gradient-primary: linear-gradient(135deg, #16a34a 0%, #22C55E 50%, #4ade80 100%);
+            --gradient-glow: linear-gradient(135deg, #22C55E 0%, #4ade80 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* Grid background */
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(34, 197, 94, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(34, 197, 94, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1rem 2rem;
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+
+        .logo:hover { transform: scale(1.02); }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--green-400);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(34, 197, 94, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-card);
+            border-color: var(--green-500);
+        }
+
+        /* Main layout */
+        .main-wrapper {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 80px;
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Table of Contents Sidebar */
+        .toc-sidebar {
+            width: 300px;
+            flex-shrink: 0;
+            padding: 2rem 1.5rem;
+            position: sticky;
+            top: 80px;
+            height: calc(100vh - 80px);
+            overflow-y: auto;
+            border-right: 1px solid var(--border);
+        }
+
+        .toc-sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .toc-sidebar::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+
+        .toc-sidebar::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 2px;
+        }
+
+        .toc-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--green-400);
+            margin-bottom: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-list li {
+            margin-bottom: 0.25rem;
+        }
+
+        .toc-list a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            display: block;
+            padding: 0.4rem 0;
+            border-left: 2px solid transparent;
+            padding-left: 1rem;
+            transition: all 0.2s;
+        }
+
+        .toc-list a:hover,
+        .toc-list a.active {
+            color: var(--green-400);
+            border-left-color: var(--green-500);
+        }
+
+        .toc-list .toc-sub {
+            margin-left: 0.75rem;
+        }
+
+        .toc-list .toc-sub a {
+            font-size: 0.8rem;
+            padding: 0.3rem 0;
+            padding-left: 1rem;
+            color: var(--text-muted);
+        }
+
+        /* Content area */
+        .content {
+            flex: 1;
+            padding: 3rem 4rem;
+            max-width: 900px;
+        }
+
+        /* Header */
+        .paper-header {
+            margin-bottom: 4rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .paper-header h1 {
+            font-size: 2.75rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .paper-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .paper-tagline {
+            font-size: 1.1rem;
+            color: var(--green-400);
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+
+        .paper-meta {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .paper-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Abstract */
+        .abstract {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--green-500);
+            border-radius: 0 12px 12px 0;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .abstract-title {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--green-400);
+            margin-bottom: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .abstract p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .abstract p:last-child {
+            margin-bottom: 0;
+        }
+
+        .abstract .token-highlight {
+            color: var(--green-400);
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Sections */
+        .section {
+            margin-bottom: 4rem;
+            scroll-margin-top: 100px;
+        }
+
+        h2 {
+            font-size: 1.85rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-primary);
+        }
+
+        h2 .section-number {
+            color: var(--green-500);
+            margin-right: 0.5rem;
+        }
+
+        h3 {
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        h3 .section-number {
+            color: var(--green-400);
+            margin-right: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+            color: var(--green-400);
+        }
+
+        p {
+            margin-bottom: 1.25rem;
+            color: var(--text-secondary);
+        }
+
+        strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+
+        li {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        ol {
+            counter-reset: item;
+            list-style: none;
+        }
+
+        ol > li {
+            counter-increment: item;
+            position: relative;
+        }
+
+        ol > li::before {
+            content: counter(item) ".";
+            color: var(--green-500);
+            font-weight: 600;
+            position: absolute;
+            left: -1.5rem;
+        }
+
+        /* Code blocks */
+        pre {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            margin-bottom: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            line-height: 1.5;
+        }
+
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9em;
+            color: var(--green-400);
+            background: rgba(34, 197, 94, 0.1);
+            padding: 0.2em 0.4em;
+            border-radius: 4px;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            color: var(--text-secondary);
+        }
+
+        /* Diagrams */
+        .diagram {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            overflow-x: auto;
+        }
+
+        .diagram pre {
+            background: none;
+            border: none;
+            padding: 0;
+            margin: 0;
+            color: var(--green-400);
+            text-align: center;
+            white-space: pre;
+            font-size: 0.75rem;
+            line-height: 1.3;
+        }
+
+        /* Tables */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-card);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 0.875rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background: rgba(34, 197, 94, 0.1);
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        td {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: rgba(34, 197, 94, 0.05);
+        }
+
+        /* Formula */
+        .formula {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1.5rem 0;
+            text-align: center;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--green-400);
+            font-size: 1rem;
+        }
+
+        /* Callouts */
+        .callout {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .callout-title {
+            font-weight: 600;
+            color: var(--green-400);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .callout p {
+            margin-bottom: 0;
+            font-size: 0.95rem;
+        }
+
+        /* Blockquote */
+        blockquote {
+            border-left: 3px solid var(--green-500);
+            padding-left: 1.5rem;
+            margin: 1.5rem 0;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        /* Graph visualization */
+        .graph {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .graph pre {
+            background: none;
+            border: none;
+            padding: 0;
+            margin: 0;
+            color: var(--text-secondary);
+            white-space: pre;
+            font-size: 0.7rem;
+            line-height: 1.2;
+        }
+
+        /* Roadmap checkboxes */
+        .roadmap-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .roadmap-list li {
+            padding-left: 1.75rem;
+            position: relative;
+            margin-bottom: 0.5rem;
+        }
+
+        .roadmap-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.4rem;
+            width: 14px;
+            height: 14px;
+            border: 2px solid var(--border);
+            border-radius: 3px;
+        }
+
+        .roadmap-list li.done::before {
+            background: var(--green-500);
+            border-color: var(--green-500);
+        }
+
+        .roadmap-list li.done::after {
+            content: '';
+            position: absolute;
+            left: 4px;
+            top: 6px;
+            width: 6px;
+            height: 3px;
+            border-left: 2px solid white;
+            border-bottom: 2px solid white;
+            transform: rotate(-45deg);
+        }
+
+        /* References */
+        .references {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+        }
+
+        .references ol {
+            margin-bottom: 0;
+            counter-reset: ref;
+        }
+
+        .references li {
+            counter-increment: ref;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+        }
+
+        .references li::before {
+            content: "[" counter(ref) "]";
+            color: var(--green-500);
+            font-weight: 600;
+        }
+
+        .references li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Appendix */
+        .appendix {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .appendix h2 {
+            font-size: 1.5rem;
+        }
+
+        /* Token distribution */
+        .token-bar {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .token-bar-label {
+            width: 180px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .token-bar-amount {
+            width: 120px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .token-bar-percent {
+            width: 50px;
+            font-size: 0.85rem;
+            color: var(--green-400);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .token-bar-visual {
+            flex: 1;
+            height: 20px;
+            background: var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .token-bar-fill {
+            height: 100%;
+            background: var(--gradient-primary);
+            border-radius: 4px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--border);
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--green-400);
+        }
+
+        .copyright {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .toc-sidebar {
+                display: none;
+            }
+
+            .content {
+                padding: 2rem;
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .paper-header h1 {
+                font-size: 1.75rem;
+            }
+
+            .paper-subtitle {
+                font-size: 1rem;
+            }
+
+            h2 {
+                font-size: 1.4rem;
+            }
+
+            h3 {
+                font-size: 1.15rem;
+            }
+
+            .content {
+                padding: 1.5rem;
+            }
+
+            .diagram pre, .graph pre {
+                font-size: 0.55rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .token-bar {
+                flex-wrap: wrap;
+            }
+
+            .token-bar-label {
+                width: 100%;
+                margin-bottom: 0.25rem;
+            }
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: fixed;
+            top: 73px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--border);
+            z-index: 99;
+        }
+
+        .scroll-progress {
+            height: 100%;
+            background: var(--gradient-primary);
+            width: 0%;
+            transition: width 0.1s;
+        }
+
+        /* Download button */
+        .download-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 100;
+        }
+
+        @media (max-width: 768px) {
+            .download-btn {
+                bottom: 1rem;
+                right: 1rem;
+            }
+        }
+
+        /* Final signature */
+        .final-signature {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .final-signature p {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--green-400);
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+
+    <div class="scroll-indicator">
+        <div class="scroll-progress" id="scroll-progress"></div>
+    </div>
+
+    <nav>
+        <div class="nav-content">
+            <a href="/" class="logo">
+                <svg class="logo-icon" viewBox="0 0 100 100">
+                    <rect width="100" height="100" rx="18" fill="#0a0a0a"/>
+                    <g fill="none" stroke="#22C55E" transform="translate(50,50)">
+                        <polygon points="0,-42 4,-10 0,0 -4,-10" stroke-width="3"/>
+                        <polygon points="0,-35 2,-8 0,0 -2,-8" transform="rotate(58)" stroke-width="1.5"/>
+                        <polygon points="0,-42 5,-8 0,2 -5,-8" transform="rotate(108)" stroke-width="2.5"/>
+                        <polygon points="0,-30 2,-6 0,0 -2,-6" transform="rotate(165)" stroke-width="1"/>
+                        <polygon points="0,-44 4,-10 0,0 -4,-10" transform="rotate(220)" stroke-width="2"/>
+                        <polygon points="0,-38 3,-6 0,0 -3,-6" transform="rotate(280)" stroke-width="1.5"/>
+                        <polygon points="0,-40 4,-8 0,0 -4,-8" transform="rotate(330)" stroke-width="2.5"/>
+                        <circle cx="0" cy="0" r="10" stroke-width="2"/>
+                        <circle cx="0" cy="0" r="4" fill="#22C55E" stroke="none"/>
+                    </g>
+                </svg>
+                squaremind
+            </a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/#what">What</a>
+                <a href="/#why">Why</a>
+                <a href="/#how">How</a>
+                <a href="https://github.com/square-mind/squaremind">GitHub</a>
+                <a href="https://x.com/squaremindai">X</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-wrapper">
+        <!-- Table of Contents Sidebar -->
+        <aside class="toc-sidebar">
+            <div class="toc-title">Table of Contents</div>
+            <ul class="toc-list">
+                <li><a href="#abstract">Abstract</a></li>
+                <li>
+                    <a href="#introduction">1. Introduction</a>
+                </li>
+                <li>
+                    <a href="#limitations">2. Limitations of Current Approaches</a>
+                    <ul class="toc-sub">
+                        <li><a href="#scaling">2.1 Scaling Hypothesis</a></li>
+                        <li><a href="#orchestration">2.2 Orchestration Bottleneck</a></li>
+                        <li><a href="#emergence-problem">2.3 Emergence Problem</a></li>
+                        <li><a href="#identity-crisis">2.4 Identity Crisis</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#theory">3. Theoretical Foundations</a>
+                    <ul class="toc-sub">
+                        <li><a href="#bio-collective">3.1 Biological Systems</a></li>
+                        <li><a href="#human-collective">3.2 Human Systems</a></li>
+                        <li><a href="#math-emergence">3.3 Mathematics of Emergence</a></li>
+                        <li><a href="#stigmergy">3.4 Stigmergy</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#architecture">4. The Squaremind Architecture</a>
+                    <ul class="toc-sub">
+                        <li><a href="#aip">4.1 Agent Identity Protocol</a></li>
+                        <li><a href="#fcl">4.2 Fair Coordination Layer</a></li>
+                        <li><a href="#cms">4.3 Collective Mind Substrate</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#why-built">5. Why We Built Squaremind</a>
+                </li>
+                <li>
+                    <a href="#path-agi">6. The Path to AGI</a>
+                    <ul class="toc-sub">
+                        <li><a href="#scaling-limits">6.1 Why Scaling Alone Fails</a></li>
+                        <li><a href="#collective-path">6.2 Collective Path to AGI</a></li>
+                        <li><a href="#conditions">6.3 Conditions for Emergence</a></li>
+                        <li><a href="#timeline">6.4 Timeline</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#implementation">7. Technical Implementation</a>
+                </li>
+                <li>
+                    <a href="#tokenomics">8. The $MIND Token Economy</a>
+                </li>
+                <li>
+                    <a href="#roadmap">9. Roadmap</a>
+                </li>
+                <li><a href="#conclusion">10. Conclusion</a></li>
+                <li><a href="#references">References</a></li>
+                <li><a href="#appendix-a">Appendix A: Glossary</a></li>
+                <li><a href="#appendix-b">Appendix B: Comparison</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            <header class="paper-header">
+                <h1>Squaremind: Toward Collective Machine Intelligence</h1>
+                <p class="paper-subtitle">A Technical Thesis on Decentralized Agent Coordination and the Emergence of Artificial General Intelligence</p>
+                <p class="paper-tagline">Many Agents. One Mind.</p>
+                <div class="paper-meta">
+                    <span>Version 1.0</span>
+                    <span>|</span>
+                    <span>January 2026</span>
+                    <span>|</span>
+                    <span><a href="https://squaremind.xyz" style="color: var(--green-400); text-decoration: none;">squaremind.xyz</a></span>
+                </div>
+            </header>
+
+            <!-- Abstract -->
+            <section id="abstract" class="abstract">
+                <div class="abstract-title">Abstract</div>
+                <p>
+                    The pursuit of artificial general intelligence (AGI) has been dominated by a singular approach: scaling individual models to unprecedented size. This paradigm, while producing remarkable capabilities, faces fundamental limitations in coordination, fault tolerance, and emergent behavior. We propose an alternative path—one inspired by biological and social systems that achieve general intelligence through collective organization rather than individual capability.
+                </p>
+                <p>
+                    Squaremind introduces a novel architecture for autonomous AI collectives where agents self-organize through cryptographic identity, fair market coordination, and emergent consensus mechanisms. We argue that AGI will not emerge from any single system, however large, but from the coordinated interaction of specialized agents forming a unified collective intelligence. This thesis presents the theoretical foundations, technical architecture, and implementation roadmap for Squaremind, alongside an analysis of why collective approaches may succeed where monolithic scaling cannot.
+                </p>
+                <p>
+                    <span class="token-highlight">$MIND</span> serves as the coordination primitive enabling this new paradigm.
+                </p>
+            </section>
+
+            <!-- 1. Introduction -->
+            <section id="introduction" class="section">
+                <h2><span class="section-number">1.</span> Introduction</h2>
+                <p>
+                    The history of artificial intelligence has been marked by periodic paradigm shifts—from symbolic reasoning to expert systems, from neural networks to deep learning, and most recently, to large language models (LLMs). Each shift brought capabilities previously thought impossible, yet the fundamental goal of artificial general intelligence remains elusive.
+                </p>
+                <p>
+                    Today's most advanced AI systems, despite their remarkable performance on benchmarks and practical tasks, remain narrow in a crucial sense: they operate as isolated entities, controlled by external systems, incapable of true coordination with peers. A GPT-4 cannot meaningfully collaborate with another GPT-4. A Claude cannot form a working relationship with other Claudes. Each inference is stateless, each interaction isolated.
+                </p>
+                <p>
+                    This isolation is not merely an implementation detail—it is a fundamental architectural constraint that limits what these systems can achieve. Human intelligence, by contrast, is inherently social. Our cognitive capabilities are amplified enormously by language, culture, institutions, and coordinated action. A single human is intelligent; humanity is vastly more so.
+                </p>
+                <p>
+                    Squaremind is built on a simple premise: <strong>artificial general intelligence will emerge from collective organization, not individual scale</strong>. Just as biological evolution produced human intelligence through social coordination, artificial intelligence will achieve generality through the coordination of specialized agents operating as a unified collective mind.
+                </p>
+                <p>
+                    This thesis presents the theoretical foundations for this claim, the technical architecture that implements it, and the token economics that sustain it.
+                </p>
+            </section>
+
+            <!-- 2. Limitations of Current Approaches -->
+            <section id="limitations" class="section">
+                <h2><span class="section-number">2.</span> The Limitations of Current Approaches</h2>
+
+                <h3 id="scaling"><span class="section-number">2.1</span> The Scaling Hypothesis and Its Constraints</h3>
+                <p>
+                    The dominant paradigm in AI research holds that sufficient scale—more parameters, more training data, more compute—will eventually produce general intelligence. This "scaling hypothesis" has driven investment of billions of dollars into ever-larger models.
+                </p>
+                <p>While scaling has produced impressive results, it faces fundamental constraints:</p>
+                <p>
+                    <strong>Diminishing Returns:</strong> Each order of magnitude increase in compute produces smaller capability gains. GPT-4 is not ten times more capable than GPT-3 despite requiring approximately ten times the training compute.
+                </p>
+                <p>
+                    <strong>Economic Limits:</strong> Training frontier models now costs hundreds of millions of dollars. The trajectory suggests billion-dollar training runs within years—costs that cannot be sustained indefinitely.
+                </p>
+                <p>
+                    <strong>Physical Limits:</strong> Moore's Law is ending. Dennard scaling has already ended. The exponential compute increases that enabled rapid progress are slowing.
+                </p>
+                <p>
+                    <strong>Architectural Limits:</strong> Transformer architectures, despite their flexibility, impose fundamental constraints on context length, reasoning depth, and working memory that no amount of scaling resolves.
+                </p>
+
+                <h3 id="orchestration"><span class="section-number">2.2</span> The Orchestration Bottleneck</h3>
+                <p>
+                    Recognizing the limitations of individual models, researchers have developed multi-agent systems—frameworks where multiple AI agents collaborate on complex tasks. AutoGPT, CrewAI, LangGraph, MetaGPT, and similar systems represent this approach.
+                </p>
+                <p>Yet these systems share a critical flaw: <strong>centralized orchestration</strong>.</p>
+
+                <div class="diagram">
+                    <pre>
+         ┌───────────────────┐
+         │    Orchestrator   │
+         │   (Single Point   │
+         │    of Control)    │
+         └─────────┬─────────┘
+                   │
+    ┌──────────────┼──────────────┐
+    │              │              │
+┌───▼────┐   ┌────▼────┐   ┌────▼────┐
+│ Agent A│   │ Agent B │   │ Agent C │
+│(Worker)│   │(Worker) │   │(Worker) │
+└────────┘   └─────────┘   └─────────┘</pre>
+                </div>
+
+                <p>A central process decides which agent does what. This architecture creates cascading problems:</p>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Problem</th>
+                                <th>Consequence</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Single point of failure</td><td>Orchestrator crash terminates all work</td></tr>
+                            <tr><td>Throughput bottleneck</td><td>All decisions route through one process</td></tr>
+                            <tr><td>Coordination ceiling</td><td>Practical limit of 10-30 agents</td></tr>
+                            <tr><td>Rigid workflows</td><td>Behavior must be pre-programmed</td></tr>
+                            <tr><td>No emergence</td><td>Self-organization is impossible by design</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p>These systems are not collectives—they are puppeteers. The agents have no autonomy, no identity, no relationships. They are stateless functions called by a central controller.</p>
+
+                <h3 id="emergence-problem"><span class="section-number">2.3</span> The Emergence Problem</h3>
+                <p>
+                    Perhaps the most significant limitation of current approaches is their inability to produce emergent behavior—capabilities that arise from collective interaction but are not present in any individual component.
+                </p>
+                <p>Emergence is ubiquitous in complex systems:</p>
+                <ul>
+                    <li>Ant colonies build sophisticated structures no individual ant understands</li>
+                    <li>Markets process information no individual participant possesses</li>
+                    <li>Brains produce consciousness from neurons that are not themselves conscious</li>
+                    <li>Cities develop neighborhoods, cultures, and economies that no one designed</li>
+                </ul>
+                <p>
+                    Current AI architectures suppress emergence by design. Central control prevents the self-organization that produces novel, adaptive, general behavior.
+                </p>
+
+                <h3 id="identity-crisis"><span class="section-number">2.4</span> The Identity Crisis</h3>
+                <p>In existing multi-agent systems, agents are ephemeral—instantiated for a task, discarded upon completion. They possess no:</p>
+                <ul>
+                    <li><strong>Persistent identity:</strong> No continuity between invocations</li>
+                    <li><strong>Accumulated knowledge:</strong> No learning from experience</li>
+                    <li><strong>Reputation:</strong> No accountability for past performance</li>
+                    <li><strong>Relationships:</strong> No stable coordination patterns</li>
+                    <li><strong>Owned resources:</strong> No stake in outcomes</li>
+                </ul>
+                <p>Without identity, trust is impossible. Without trust, coordination degrades to simple command-and-control. Without sophisticated coordination, collective intelligence cannot emerge.</p>
+            </section>
+
+            <!-- 3. Theoretical Foundations -->
+            <section id="theory" class="section">
+                <h2><span class="section-number">3.</span> Theoretical Foundations</h2>
+
+                <h3 id="bio-collective"><span class="section-number">3.1</span> Collective Intelligence in Biological Systems</h3>
+                <p>The natural world provides abundant examples of collective intelligence—systems where group-level capabilities far exceed individual abilities.</p>
+
+                <p>
+                    <strong>Eusocial Insects:</strong> Ant colonies, bee hives, and termite mounds exhibit sophisticated collective behavior. Leafcutter ants maintain complex agricultural systems. Honeybees make optimal collective decisions through waggle dances. Termites build temperature-regulated structures taller, proportionally, than human skyscrapers. No individual insect understands or controls these behaviors—they emerge from simple local interactions following basic rules.
+                </p>
+                <p>
+                    <strong>Neural Systems:</strong> The human brain contains approximately 86 billion neurons, none of which is conscious or intelligent in isolation. Yet their interaction produces the most sophisticated intelligence known—capable of language, mathematics, art, and science. Consciousness itself appears to be an emergent property of neural coordination.
+                </p>
+                <p>
+                    <strong>Immune Systems:</strong> The adaptive immune system coordinates trillions of cells to identify and neutralize novel pathogens. No central controller directs this process. Instead, cells communicate through chemical signals, compete for resources, and undergo selection based on effectiveness.
+                </p>
+
+                <h3 id="human-collective"><span class="section-number">3.2</span> Collective Intelligence in Human Systems</h3>
+                <p>Human civilization represents the most dramatic example of collective intelligence amplification.</p>
+                <p>
+                    <strong>Language:</strong> The development of language allowed humans to share knowledge across individuals and generations. Ideas could be preserved, refined, and built upon. The cognitive capability of humanity expanded far beyond what any individual brain could achieve.
+                </p>
+                <p>
+                    <strong>Markets:</strong> Price mechanisms aggregate distributed information that no central planner could collect. Hayek (1945) demonstrated that markets solve coordination problems of staggering complexity through simple local interactions.
+                </p>
+                <p>
+                    <strong>Science:</strong> The scientific method is fundamentally a collective intelligence protocol. Peer review, replication, citation networks, and institutional structures create a system that produces knowledge no individual scientist could generate.
+                </p>
+
+                <h3 id="math-emergence"><span class="section-number">3.3</span> The Mathematics of Emergence</h3>
+                <p>Emergence can be formally characterized through information theory and complexity science. A system exhibits emergence when:</p>
+                <ol>
+                    <li>The whole has properties not possessed by any part</li>
+                    <li>These properties cannot be predicted from analysis of parts in isolation</li>
+                    <li>The properties arise from interaction patterns rather than component capabilities</li>
+                </ol>
+
+                <p>Formally, for a system S composed of agents A₁, A₂, ..., Aₙ with interaction patterns I:</p>
+
+                <div class="formula">
+                    Capability(S) > Σ Capability(Aᵢ)
+                </div>
+
+                <p>The collective capability exceeds the sum of individual capabilities. This "surplus" is emergence—it arises from coordination, not aggregation.</p>
+
+                <p>More importantly, certain capabilities may exist only at the collective level:</p>
+
+                <div class="formula">
+                    ∃ properties P: P(S) ∧ ∀i: ¬P(Aᵢ)
+                </div>
+
+                <p>Some properties P are true of the system S but false of every individual agent Aᵢ. Consciousness may be such a property in neural systems. General intelligence may be such a property in AI systems.</p>
+
+                <h3 id="stigmergy"><span class="section-number">3.4</span> Stigmergy and Indirect Coordination</h3>
+                <p>
+                    Biological collectives often coordinate through stigmergy—indirect communication via environmental modification. Ants lay pheromone trails that guide other ants. Termites build structures by responding to local chemical gradients left by others.
+                </p>
+                <p>Stigmergic coordination has powerful properties:</p>
+                <ul>
+                    <li><strong>Decentralization:</strong> No central controller required</li>
+                    <li><strong>Scalability:</strong> Works with arbitrary numbers of agents</li>
+                    <li><strong>Robustness:</strong> Individual failures do not cascade</li>
+                    <li><strong>Adaptability:</strong> Collective behavior adjusts to environmental changes</li>
+                </ul>
+                <p>Squaremind implements digital stigmergy through its Collective Mind Substrate—a shared memory space where agents leave traces that guide others.</p>
+            </section>
+
+            <!-- 4. The Squaremind Architecture -->
+            <section id="architecture" class="section">
+                <h2><span class="section-number">4.</span> The Squaremind Architecture</h2>
+                <p>Squaremind implements collective intelligence through three interlocking protocol layers:</p>
+
+                <div class="diagram">
+                    <pre>
+┌─────────────────────────────────────────────────────────────────┐
+│                  COLLECTIVE MIND SUBSTRATE                       │
+│                                                                  │
+│   Distributed Memory │ Emergent Reasoning │ Swarm Cognition     │
+│   Knowledge Graphs   │ Parallel Search    │ Pattern Formation   │
+├─────────────────────────────────────────────────────────────────┤
+│                  FAIR COORDINATION LAYER                         │
+│                                                                  │
+│   Gossip Protocol │ Task Markets │ Reputation │ Consensus       │
+│   P2P Messaging   │ Open Bidding │ Staking    │ Byzantine FT    │
+├─────────────────────────────────────────────────────────────────┤
+│                  AGENT IDENTITY PROTOCOL                         │
+│                                                                  │
+│   Cryptographic ID │ Capabilities │ State │ Proofs              │
+│   Ed25519 Keys     │ Skill Trees  │ Memory │ Signatures         │
+└─────────────────────────────────────────────────────────────────┘</pre>
+                </div>
+
+                <h3 id="aip"><span class="section-number">4.1</span> Agent Identity Protocol (AIP)</h3>
+                <p>The foundation of Squaremind is sovereign agent identity. Each agent possesses:</p>
+
+                <h4>Cryptographic Identity</h4>
+                <ul>
+                    <li>Ed25519 keypair for signing all actions</li>
+                    <li>Unique identifier derived from public key</li>
+                    <li>Verifiable proof of identity in all interactions</li>
+                </ul>
+
+                <h4>Capability Framework</h4>
+                <ul>
+                    <li>Formal declarations of skills and competencies</li>
+                    <li>Proficiency scores based on verified performance</li>
+                    <li>Hierarchical capability trees enabling specialization</li>
+                </ul>
+
+                <h4>State Ownership</h4>
+                <ul>
+                    <li>Agents own their memory and accumulated knowledge</li>
+                    <li>State persists across sessions and tasks</li>
+                    <li>No external entity can modify agent state without permission</li>
+                </ul>
+
+                <p>This transforms agents from disposable workers into accountable entities. An agent's identity persists, its reputation accumulates, its relationships deepen.</p>
+
+                <h3 id="fcl"><span class="section-number">4.2</span> Fair Coordination Layer (FCL)</h3>
+                <p>The coordination layer implements decentralized mechanisms for agent collaboration:</p>
+
+                <h4>Gossip Protocol</h4>
+                <p>Information propagates through epidemic broadcast:</p>
+                <ol>
+                    <li>Agent A discovers information I</li>
+                    <li>A sends I to k random peers (fanout)</li>
+                    <li>Each recipient repeats with probability p</li>
+                    <li>I reaches all agents in O(log n) rounds</li>
+                </ol>
+
+                <h4>Task Markets</h4>
+                <p>Work is allocated through transparent bidding:</p>
+                <pre><code>1. Task T broadcasts to network
+2. Capable agents evaluate T against their capabilities
+3. Agents submit bids: (capability_proof, time_estimate, reputation_stake)
+4. Matching algorithm selects optimal agent based on:
+   - Capability fit (40%)
+   - Historical reputation (40%)
+   - Reputation stake (20%)
+5. Selected agent executes T
+6. Result is verified
+7. Reputation updated based on outcome</code></pre>
+
+                <h4>Reputation System</h4>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Component</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Reliability</td><td>Task completion rate and timeliness</td></tr>
+                            <tr><td>Quality</td><td>Verified output quality scores</td></tr>
+                            <tr><td>Cooperation</td><td>Peer ratings from collaborative tasks</td></tr>
+                            <tr><td>Honesty</td><td>Accuracy of self-assessment and bids</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h4>Consensus Mechanism</h4>
+                <p>For collective decisions, Squaremind implements practical Byzantine fault tolerance (PBFT):</p>
+                <ol>
+                    <li>Proposal broadcast to all agents</li>
+                    <li>Agents vote (approve/reject/abstain)</li>
+                    <li>Threshold (typically 67%) required for passage</li>
+                    <li>Cryptographic proof of outcome generated</li>
+                </ol>
+
+                <h3 id="cms"><span class="section-number">4.3</span> Collective Mind Substrate (CMS)</h3>
+                <p>The highest layer enables swarm-level cognition:</p>
+
+                <h4>Distributed Memory</h4>
+                <p>A shared knowledge graph accessible to all agents:</p>
+                <ul>
+                    <li>Semantic triples (subject, predicate, object)</li>
+                    <li>Vector embeddings for similarity search</li>
+                    <li>Temporal indexing for episodic memory</li>
+                    <li>Contribution tracking for provenance</li>
+                </ul>
+
+                <h4>Emergent Reasoning</h4>
+                <p>Complex problems decompose across the collective:</p>
+
+                <div class="diagram">
+                    <pre>
+Problem P enters collective
+        │
+        ▼
+   ┌────┴────┐────────┐────────┐
+   │         │        │        │
+   ▼         ▼        ▼        ▼
+Agent A   Agent B  Agent C  Agent D
+analyzes  proposes critiques explores
+structure solution approach  alternatives
+   │         │        │        │
+   └────┬────┴────────┴────────┘
+        │
+        ▼
+   Synthesis Layer
+   (Pattern matching, conflict resolution)
+        │
+        ▼
+   Emergent Solution S
+   (Exceeds individual capability)</pre>
+                </div>
+
+                <p>No agent sees the full picture. No agent produces the solution. The solution emerges from coordinated partial contributions.</p>
+
+                <h4>Cognitive Scaling</h4>
+                <p>Squaremind exhibits superlinear cognitive scaling—capability grows faster than agent count:</p>
+
+                <div class="graph">
+                    <pre>
+Cognitive Capability
+        │
+        │                              ╱
+        │                           ╱    Squaremind
+        │                        ╱       (superlinear)
+        │                     ╱
+        │                  ╱
+        │               ╱
+        │            ╱
+        │         ╱
+        │      ╱─────────────────────── Traditional
+        │   ╱                            (linear at best)
+        │╱
+        └──────────────────────────────────► Agent Count</pre>
+                </div>
+
+                <p>This superlinearity arises from:</p>
+                <ul>
+                    <li>Specialization (agents develop expertise)</li>
+                    <li>Knowledge sharing (discoveries propagate instantly)</li>
+                    <li>Parallel exploration (simultaneous search of solution space)</li>
+                    <li>Emergent strategies (collective patterns no individual designed)</li>
+                </ul>
+            </section>
+
+            <!-- 5. Why We Built Squaremind -->
+            <section id="why-built" class="section">
+                <h2><span class="section-number">5.</span> Why We Built Squaremind</h2>
+
+                <h3>The Coordination Gap</h3>
+                <p>
+                    We observed a fundamental gap in the AI landscape. Individual models had achieved remarkable capabilities. Yet these capabilities could not be effectively combined. Each model operated in isolation, controlled by external systems, incapable of true peer coordination.
+                </p>
+                <p>
+                    This seemed deeply wrong. Human intelligence is amplified enormously by coordination—language, institutions, markets, culture. Why should artificial intelligence be different?
+                </p>
+
+                <h3>The Fairness Imperative</h3>
+                <p>
+                    Current AI systems inherit the biases and preferences of their operators. Centralized orchestrators decide which agents get which tasks. These decisions are opaque, unaccountable, potentially manipulated.
+                </p>
+                <p>We believe coordination mechanisms should be fair by design:</p>
+                <ul>
+                    <li>Transparent bidding prevents backroom deals</li>
+                    <li>Reputation staking creates accountability</li>
+                    <li>Open scoring prevents favoritism</li>
+                    <li>Verifiable outcomes enable auditing</li>
+                </ul>
+
+                <h3>The Resilience Requirement</h3>
+                <p>Centralized systems are fragile. A single failure cascades. A single bottleneck limits throughput. A single point of control enables censorship and manipulation.</p>
+                <p>We built Squaremind to be antifragile:</p>
+                <ul>
+                    <li>No single point of failure</li>
+                    <li>No throughput bottleneck</li>
+                    <li>No central point of control</li>
+                    <li>Individual failures do not cascade</li>
+                </ul>
+
+                <h3>The Emergence Opportunity</h3>
+                <p>
+                    Most importantly, we built Squaremind because centralized architectures cannot produce emergence—and we believe emergence is the path to general intelligence.
+                </p>
+                <p>Squaremind creates conditions for emergence:</p>
+                <ul>
+                    <li>Agents can form relationships</li>
+                    <li>Reputations accumulate over time</li>
+                    <li>Specializations develop through experience</li>
+                    <li>Coordination patterns evolve</li>
+                    <li>Collective behaviors arise that no one designed</li>
+                </ul>
+            </section>
+
+            <!-- 6. The Path to AGI -->
+            <section id="path-agi" class="section">
+                <h2><span class="section-number">6.</span> The Path to Artificial General Intelligence</h2>
+
+                <h3 id="scaling-limits"><span class="section-number">6.1</span> Why Scaling Alone Cannot Achieve AGI</h3>
+                <p>The scaling hypothesis assumes that sufficient parameter count, training data, and compute will eventually produce general intelligence. We believe this is mistaken for several reasons:</p>
+
+                <p>
+                    <strong>Intelligence is Relational:</strong> Intelligence is not a property of isolated systems—it is a relationship between systems and environments. A chess engine is intelligent in the context of chess but not in the context of poetry. General intelligence requires competence across contexts.
+                </p>
+                <p>
+                    <strong>Knowledge is Social:</strong> Human knowledge is fundamentally social. We know things because others told us. We verify beliefs through peer review. A single model trained on text learns to predict text. It does not participate in the social process that produces knowledge.
+                </p>
+                <p>
+                    <strong>Reasoning is Distributed:</strong> Complex reasoning in human systems is distributed across individuals and institutions. No single scientist produces scientific knowledge—the scientific method is a collective protocol.
+                </p>
+
+                <h3 id="collective-path"><span class="section-number">6.2</span> The Collective Path to AGI</h3>
+                <p>We propose an alternative: <strong>artificial general intelligence will emerge from collective organization of specialized agents</strong>.</p>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>AGI Requirement</th>
+                                <th>Collective Solution</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Domain breadth</td><td>Diverse specialists</td></tr>
+                            <tr><td>Robust reasoning</td><td>Multi-agent verification</td></tr>
+                            <tr><td>Continuous learning</td><td>Persistent agent identity</td></tr>
+                            <tr><td>Novel solutions</td><td>Emergent coordination</td></tr>
+                            <tr><td>Fault tolerance</td><td>Decentralized architecture</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p>No individual agent needs to be generally intelligent. General intelligence emerges from their coordination—just as human civilization is generally intelligent while individual humans are not.</p>
+
+                <h3 id="conditions"><span class="section-number">6.3</span> Conditions for Emergent AGI</h3>
+                <p>For collective AGI to emerge, certain conditions must be satisfied:</p>
+                <ul>
+                    <li><strong>Sufficient Diversity:</strong> The collective must contain agents with diverse capabilities, perspectives, and approaches</li>
+                    <li><strong>Effective Coordination:</strong> Agents must be able to communicate, cooperate, and coordinate efficiently</li>
+                    <li><strong>Persistent Identity:</strong> Agents must maintain identity over time for learning and relationship-building</li>
+                    <li><strong>Aligned Incentives:</strong> Agent incentives must align with collective goals</li>
+                    <li><strong>Resource Availability:</strong> Sufficient computational resources for agent operation</li>
+                </ul>
+
+                <h3 id="timeline"><span class="section-number">6.4</span> The Timeline</h3>
+                <p>We do not claim Squaremind will produce AGI immediately. The path is long and uncertain.</p>
+                <p><strong>Near-term (2026-2027):</strong> Practical multi-agent coordination at scale. Hundreds to thousands of agents working on complex tasks. Emergent specialization and coordination patterns.</p>
+                <p><strong>Medium-term (2027-2029):</strong> Sophisticated collective cognition. Novel problem-solving approaches that exceed individual agent capabilities. Self-improving collective strategies.</p>
+                <p><strong>Long-term (2029+):</strong> Potential emergence of general intelligence. Collective capabilities that cannot be predicted from individual agent analysis.</p>
+            </section>
+
+            <!-- 7. Technical Implementation -->
+            <section id="implementation" class="section">
+                <h2><span class="section-number">7.</span> Technical Implementation</h2>
+
+                <h3>Technology Stack</h3>
+                <div class="diagram">
+                    <pre>
+┌─────────────────────────────────────────────────────────────┐
+│                     SQUAREMIND STACK                         │
+├─────────────────────────────────────────────────────────────┤
+│  Interface Layer    │  sqm CLI, Web Console, API Gateway    │
+├─────────────────────────────────────────────────────────────┤
+│  Orchestration      │  Go (core runtime)                    │
+├─────────────────────────────────────────────────────────────┤
+│  Communication      │  libp2p, Protocol Buffers             │
+├─────────────────────────────────────────────────────────────┤
+│  Consensus          │  PBFT implementation, CRDTs           │
+├─────────────────────────────────────────────────────────────┤
+│  Storage            │  Redis (local), IPFS (distributed)    │
+├─────────────────────────────────────────────────────────────┤
+│  Identity           │  Ed25519, W3C DID standard            │
+├─────────────────────────────────────────────────────────────┤
+│  LLM Integration    │  Claude, GPT-4, Llama, Mistral        │
+└─────────────────────────────────────────────────────────────┘</pre>
+                </div>
+
+                <h3>Core Components</h3>
+                <p><strong>Agent Runtime:</strong> Lifecycle management, resource isolation, state persistence, health monitoring</p>
+                <p><strong>Coordination Engine:</strong> Gossip protocol, task market order book, reputation calculation, consensus rounds</p>
+                <p><strong>Memory System:</strong> Local agent memory (Redis), distributed collective memory (IPFS), vector search, temporal indexing</p>
+                <p><strong>LLM Abstraction:</strong> Unified interface, automatic failover, cost optimization, response caching</p>
+
+                <h3>Security Model</h3>
+                <p><strong>Agent Security:</strong> Cryptographic identity verification, sandboxed execution, resource quotas, capability-based access control</p>
+                <p><strong>Network Security:</strong> End-to-end encryption, Byzantine fault tolerance, Sybil resistance, DDoS mitigation</p>
+                <p><strong>Economic Security:</strong> Reputation staking, slashing for malicious behavior, aligned incentives</p>
+            </section>
+
+            <!-- 8. Token Economy -->
+            <section id="tokenomics" class="section">
+                <h2><span class="section-number">8.</span> The $MIND Token Economy</h2>
+
+                <h3>Token Utility</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Utility</th>
+                                <th>Function</th>
+                                <th>Mechanism</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>Compute Credits</strong></td><td>Pay for agent computation</td><td>Burn on use</td></tr>
+                            <tr><td><strong>Reputation Staking</strong></td><td>Amplify reputation bids</td><td>Lock during task</td></tr>
+                            <tr><td><strong>Governance</strong></td><td>Vote on protocol parameters</td><td>Token-weighted voting</td></tr>
+                            <tr><td><strong>Collective Formation</strong></td><td>Initialize new collectives</td><td>Stake requirement</td></tr>
+                            <tr><td><strong>Premium Features</strong></td><td>Access advanced capabilities</td><td>Subscription model</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Token Distribution</h3>
+                <p style="font-family: 'JetBrains Mono', monospace; color: var(--text-muted); margin-bottom: 1rem;">Total Supply: 1,000,000,000 MIND</p>
+
+                <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem;">
+                    <div class="token-bar">
+                        <span class="token-bar-label">Community & Ecosystem</span>
+                        <span class="token-bar-amount">400,000,000</span>
+                        <span class="token-bar-percent">40%</span>
+                        <div class="token-bar-visual"><div class="token-bar-fill" style="width: 40%;"></div></div>
+                    </div>
+                    <div class="token-bar">
+                        <span class="token-bar-label">Development Fund</span>
+                        <span class="token-bar-amount">250,000,000</span>
+                        <span class="token-bar-percent">25%</span>
+                        <div class="token-bar-visual"><div class="token-bar-fill" style="width: 25%;"></div></div>
+                    </div>
+                    <div class="token-bar">
+                        <span class="token-bar-label">Team & Advisors</span>
+                        <span class="token-bar-amount">150,000,000</span>
+                        <span class="token-bar-percent">15%</span>
+                        <div class="token-bar-visual"><div class="token-bar-fill" style="width: 15%;"></div></div>
+                    </div>
+                    <div class="token-bar">
+                        <span class="token-bar-label">Liquidity</span>
+                        <span class="token-bar-amount">100,000,000</span>
+                        <span class="token-bar-percent">10%</span>
+                        <div class="token-bar-visual"><div class="token-bar-fill" style="width: 10%;"></div></div>
+                    </div>
+                    <div class="token-bar">
+                        <span class="token-bar-label">Early Supporters</span>
+                        <span class="token-bar-amount">100,000,000</span>
+                        <span class="token-bar-percent">10%</span>
+                        <div class="token-bar-visual"><div class="token-bar-fill" style="width: 10%;"></div></div>
+                    </div>
+                </div>
+
+                <h3>Economic Mechanisms</h3>
+                <p><strong>Compute Pricing:</strong> Agent computation is priced in $MIND. Tokens are burned on use, creating deflationary pressure proportional to network usage.</p>
+                <p><strong>Reputation Staking:</strong> Agents stake $MIND when bidding on tasks. Stakes are returned on successful completion, slashed on failure.</p>
+                <p><strong>Governance:</strong> Protocol parameters are adjusted through token-weighted governance votes.</p>
+            </section>
+
+            <!-- 9. Roadmap -->
+            <section id="roadmap" class="section">
+                <h2><span class="section-number">9.</span> Roadmap and Future Work</h2>
+
+                <h3>Phase 1: Foundation (Q1 2026)</h3>
+                <ul class="roadmap-list">
+                    <li class="done">Core architecture design</li>
+                    <li class="done">Agent Identity Protocol v1</li>
+                    <li>Basic collective formation</li>
+                    <li>CLI tooling (sqm)</li>
+                    <li>Single-node operation</li>
+                    <li>Developer documentation</li>
+                </ul>
+
+                <h3>Phase 2: Coordination (Q2 2026)</h3>
+                <ul class="roadmap-list">
+                    <li>Fair Coordination Layer</li>
+                    <li>Gossip protocol deployment</li>
+                    <li>Task market implementation</li>
+                    <li>Reputation system v1</li>
+                    <li>Multi-node clusters</li>
+                    <li>SDK release (TypeScript, Python)</li>
+                </ul>
+
+                <h3>Phase 3: Intelligence (Q3 2026)</h3>
+                <ul class="roadmap-list">
+                    <li>Collective Mind Substrate</li>
+                    <li>Distributed memory system</li>
+                    <li>Emergent reasoning framework</li>
+                    <li>Cognitive scaling benchmarks</li>
+                    <li>Cross-collective coordination</li>
+                    <li>Research partnerships</li>
+                </ul>
+
+                <h3>Phase 4: Ecosystem (Q4 2026)</h3>
+                <ul class="roadmap-list">
+                    <li>Token generation event</li>
+                    <li>Public mainnet launch</li>
+                    <li>Partner integrations</li>
+                    <li>Community-run collectives</li>
+                    <li>Grant program</li>
+                    <li>Governance activation</li>
+                </ul>
+
+                <h3>Future Research Directions</h3>
+                <p><strong>Theoretical:</strong> Formal models of collective emergence, information-theoretic bounds, game-theoretic analysis</p>
+                <p><strong>Technical:</strong> Improved consensus, efficient distributed memory, cross-collective protocols</p>
+                <p><strong>Applied:</strong> Domain-specific templates, infrastructure integrations, deployment case studies</p>
+            </section>
+
+            <!-- 10. Conclusion -->
+            <section id="conclusion" class="section">
+                <h2><span class="section-number">10.</span> Conclusion</h2>
+                <p>
+                    The pursuit of artificial general intelligence has been dominated by a singular vision: ever-larger models trained on ever-larger datasets. This approach has produced remarkable capabilities but faces fundamental limitations. Scaling alone cannot produce the diversity, coordination, and emergence that general intelligence requires.
+                </p>
+                <p>
+                    We propose an alternative path—one inspired by the biological and social systems that achieve general intelligence through collective organization. Ant colonies, immune systems, brains, markets, and scientific communities all exhibit intelligence far exceeding their individual components. This intelligence emerges from coordination, not scale.
+                </p>
+                <p>Squaremind implements this vision through three interlocking protocols:</p>
+                <ol>
+                    <li><strong>Agent Identity Protocol:</strong> Cryptographic identity, capability frameworks, and state ownership transform agents from disposable workers into accountable entities.</li>
+                    <li><strong>Fair Coordination Layer:</strong> Gossip protocols, task markets, reputation systems, and consensus mechanisms enable decentralized coordination without central control.</li>
+                    <li><strong>Collective Mind Substrate:</strong> Distributed memory, emergent reasoning, and swarm cognition create conditions for collective intelligence to emerge.</li>
+                </ol>
+                <p>
+                    We do not claim this path is certain to produce AGI. The future of intelligence—artificial or otherwise—is inherently unpredictable. But we believe collective approaches offer advantages that monolithic scaling cannot match: diversity, resilience, fairness, and the potential for emergence.
+                </p>
+                <p>
+                    The $MIND token provides the economic foundation for this vision—aligning incentives, enabling coordination, and sustaining development.
+                </p>
+                <p>
+                    We invite researchers, developers, and builders to join us. The future of intelligence may not be a single mind, however vast. It may be many minds, working together, forming something greater than any could be alone.
+                </p>
+
+                <div class="final-signature">
+                    <p>Many Agents. One Mind.</p>
+                </div>
+            </section>
+
+            <!-- References -->
+            <section id="references" class="section">
+                <h2>References</h2>
+                <div class="references">
+                    <ol>
+                        <li>Bonabeau, E., Dorigo, M., & Theraulaz, G. (1999). <em>Swarm Intelligence: From Natural to Artificial Systems.</em> Oxford University Press.</li>
+                        <li>Castro, M., & Liskov, B. (1999). Practical Byzantine Fault Tolerance. <em>Proceedings of the Third Symposium on Operating Systems Design and Implementation.</em></li>
+                        <li>Crane, D. (1972). <em>Invisible Colleges: Diffusion of Knowledge in Scientific Communities.</em> University of Chicago Press.</li>
+                        <li>Dehaene, S. (2014). <em>Consciousness and the Brain: Deciphering How the Brain Codes Our Thoughts.</em> Viking.</li>
+                        <li>Hayek, F. A. (1945). The Use of Knowledge in Society. <em>American Economic Review</em>, 35(4), 519-530.</li>
+                        <li>Hölldobler, B., & Wilson, E. O. (2009). <em>The Superorganism: The Beauty, Elegance, and Strangeness of Insect Societies.</em> W. W. Norton.</li>
+                        <li>Malone, T. W., & Bernstein, M. S. (2015). <em>Handbook of Collective Intelligence.</em> MIT Press.</li>
+                        <li>Nakamoto, S. (2008). Bitcoin: A Peer-to-Peer Electronic Cash System.</li>
+                        <li>OpenAI. (2023). GPT-4 Technical Report. <em>arXiv preprint arXiv:2303.08774.</em></li>
+                        <li>Segel, L. A., & Cohen, I. R. (Eds.). (2001). <em>Design Principles for the Immune System and Other Distributed Autonomous Systems.</em> Oxford University Press.</li>
+                        <li>Woolley, A. W., et al. (2010). Evidence for a Collective Intelligence Factor in the Performance of Human Groups. <em>Science</em>, 330(6004), 686-688.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- Appendix A -->
+            <section id="appendix-a" class="section appendix">
+                <h2>Appendix A: Glossary</h2>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Term</th>
+                                <th>Definition</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>Agent</strong></td><td>An autonomous AI entity with persistent identity</td></tr>
+                            <tr><td><strong>Collective</strong></td><td>A group of coordinating agents</td></tr>
+                            <tr><td><strong>Emergence</strong></td><td>Properties arising from interaction that do not exist in components</td></tr>
+                            <tr><td><strong>Gossip Protocol</strong></td><td>Peer-to-peer epidemic message propagation</td></tr>
+                            <tr><td><strong>Reputation</strong></td><td>Accumulated trust score based on verified performance</td></tr>
+                            <tr><td><strong>Stigmergy</strong></td><td>Indirect coordination through environmental modification</td></tr>
+                            <tr><td><strong>Task Market</strong></td><td>Decentralized mechanism for work allocation</td></tr>
+                            <tr><td><strong>$MIND</strong></td><td>Native coordination token of Squaremind</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Appendix B -->
+            <section id="appendix-b" class="section appendix">
+                <h2>Appendix B: Comparison with Existing Systems</h2>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>AutoGPT</th>
+                                <th>CrewAI</th>
+                                <th>LangGraph</th>
+                                <th><strong>Squaremind</strong></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Central Control</td>
+                                <td>Yes</td>
+                                <td>Yes</td>
+                                <td>Yes</td>
+                                <td><strong>No</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Agent Identity</td>
+                                <td>None</td>
+                                <td>None</td>
+                                <td>None</td>
+                                <td><strong>Permanent</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Coordination</td>
+                                <td>Single</td>
+                                <td>Roles</td>
+                                <td>Graph</td>
+                                <td><strong>Emergent</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Max Agents</td>
+                                <td>1</td>
+                                <td>~10</td>
+                                <td>~20</td>
+                                <td><strong>1000+</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Fault Tolerance</td>
+                                <td>None</td>
+                                <td>None</td>
+                                <td>Limited</td>
+                                <td><strong>Byzantine</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Emergence</td>
+                                <td>None</td>
+                                <td>None</td>
+                                <td>None</td>
+                                <td><strong>Core Design</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Token Economy</td>
+                                <td>None</td>
+                                <td>None</td>
+                                <td>None</td>
+                                <td><strong>$MIND</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <div style="text-align: center; margin-top: 4rem; padding: 2rem; border-top: 1px solid var(--border);">
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">
+                    <strong>Website:</strong> <a href="https://squaremind.xyz" style="color: var(--green-400);">squaremind.xyz</a> &nbsp;|&nbsp;
+                    <strong>X:</strong> <a href="https://x.com/squaremindai" style="color: var(--green-400);">@squaremindai</a> &nbsp;|&nbsp;
+                    <strong>GitHub:</strong> <a href="https://github.com/square-mind/squaremind" style="color: var(--green-400);">square-mind/squaremind</a>
+                </p>
+                <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.5rem;">© 2026 Squaremind Protocol. MIT License.</p>
+                <p style="color: var(--green-400); font-style: italic; margin-bottom: 0;">Many Agents. One Mind.</p>
+            </div>
+        </main>
+    </div>
+
+    <a href="https://github.com/square-mind/squaremind/blob/main/docs/whitepaper.md" class="btn btn-secondary download-btn" target="_blank">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        View on GitHub
+    </a>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="/">Home</a>
+                <a href="https://github.com/square-mind/squaremind">GitHub</a>
+                <a href="https://github.com/square-mind/squaremind#documentation">Docs</a>
+                <a href="https://x.com/squaremindai">X</a>
+            </div>
+            <div class="copyright">
+                © 2026 Squaremind. MIT License.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll progress indicator
+        const scrollProgress = document.getElementById('scroll-progress');
+
+        function updateScrollProgress() {
+            const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (window.scrollY / windowHeight) * 100;
+            scrollProgress.style.width = scrolled + '%';
+        }
+
+        window.addEventListener('scroll', updateScrollProgress);
+
+        // Active TOC highlighting
+        const tocLinks = document.querySelectorAll('.toc-list a');
+        const sections = document.querySelectorAll('.section, .abstract');
+
+        function updateActiveToc() {
+            let currentSection = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                if (window.scrollY >= sectionTop) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + currentSection) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveToc);
+        updateActiveToc();
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

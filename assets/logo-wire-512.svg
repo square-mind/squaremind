@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Dark background -->
+  <rect width="512" height="512" rx="90" fill="#0a0a0a"/>
+
+  <!-- Wire star - GREEN #22C55E -->
+  <g fill="none" stroke="#22C55E" transform="translate(256,256)">
+    <polygon points="0,-180 18,-45 0,0 -18,-45" stroke-width="12"/>
+    <polygon points="0,-150 9,-35 0,0 -9,-35" transform="rotate(58)" stroke-width="6"/>
+    <polygon points="0,-180 22,-35 0,8 -22,-35" transform="rotate(108)" stroke-width="10"/>
+    <polygon points="0,-130 9,-25 0,0 -9,-25" transform="rotate(165)" stroke-width="4"/>
+    <polygon points="0,-190 18,-45 0,0 -18,-45" transform="rotate(220)" stroke-width="8"/>
+    <polygon points="0,-160 13,-25 0,0 -13,-25" transform="rotate(280)" stroke-width="6"/>
+    <polygon points="0,-170 18,-35 0,0 -18,-35" transform="rotate(330)" stroke-width="10"/>
+    <circle cx="0" cy="0" r="45" stroke-width="8"/>
+    <circle cx="0" cy="0" r="18" fill="#22C55E" stroke="none"/>
+  </g>
+</svg>

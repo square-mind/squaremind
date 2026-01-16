@@ -1,0 +1,49 @@
+# Binaries
+build/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary
+*.test
+
+# Output of the go coverage tool
+*.out
+coverage.html
+
+# Dependency directories
+vendor/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+*.env
+
+# Logs
+*.log
+logs/
+
+# Node modules (for SDK)
+node_modules/
+
+# TypeScript build
+sdk/squaremind-sdk/dist/
+sdk/squaremind-sdk/*.js
+sdk/squaremind-sdk/*.d.ts
+
+# Config files with secrets
+config/local.yaml
+config/secrets.yaml

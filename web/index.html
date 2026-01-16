@@ -1,0 +1,1744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Squaremind | Many Agents. One Mind. $MIND</title>
+    <meta name="description" content="Squaremind is a collective intelligence protocol where AI agents coordinate fairly, transparently, and without central control. The path to AGI through emergent swarm intelligence.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Squaremind | Many Agents. One Mind.">
+    <meta property="og:description" content="Collective intelligence protocol. Fair coordination. Emergent consensus. The path to AGI.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://squaremind.xyz">
+    <meta property="og:image" content="https://squaremind.xyz/og-image.svg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- X -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@squaremindai">
+    <meta name="twitter:title" content="Squaremind | $MIND">
+    <meta name="twitter:description" content="Many Agents. One Mind. The collective intelligence protocol.">
+    <meta name="twitter:image" content="https://squaremind.xyz/og-image.svg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-card: #111111;
+            --bg-card-hover: #161616;
+            --border: #1a1a1a;
+            --border-hover: #2a2a2a;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --green-500: #22C55E;
+            --green-400: #4ade80;
+            --green-600: #16a34a;
+            --green-900: #14532d;
+            --gradient-primary: linear-gradient(135deg, #16a34a 0%, #22C55E 50%, #4ade80 100%);
+            --gradient-glow: linear-gradient(135deg, #22C55E 0%, #4ade80 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.08; }
+            50% { opacity: 0.15; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes rotateGlow {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        @keyframes typewriter {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        /* Grid background */
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(34, 197, 94, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(34, 197, 94, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .bg-glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            filter: blur(150px);
+            pointer-events: none;
+            z-index: 0;
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        .bg-glow-1 { top: -200px; left: -200px; background: var(--green-500); opacity: 0.1; }
+        .bg-glow-2 { bottom: -200px; right: -200px; background: var(--green-400); opacity: 0.08; animation-delay: 4s; }
+        .bg-glow-3 {
+            top: 50%; left: 50%;
+            width: 800px; height: 800px;
+            background: conic-gradient(from 0deg, transparent, var(--green-500), transparent);
+            opacity: 0.03;
+            animation: rotateGlow 30s linear infinite;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1rem 2rem;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+
+        .logo:hover { transform: scale(1.02); }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s, transform 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--green-400);
+            transform: translateY(-1px);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 50px rgba(34, 197, 94, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-card);
+            border-color: var(--green-500);
+            transform: translateY(-2px);
+        }
+
+        .btn-large {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 100px;
+            font-size: 0.9rem;
+            color: var(--green-400);
+            margin-bottom: 2rem;
+            font-family: 'JetBrains Mono', monospace;
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 10vw, 5.5rem);
+            font-weight: 800;
+            line-height: 1.05;
+            margin-bottom: 1.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 0.8s ease-out 0.1s forwards;
+            opacity: 0;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.8s ease-out 0.2s forwards;
+            opacity: 0;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: fadeInUp 0.8s ease-out 0.3s forwards;
+            opacity: 0;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 4rem;
+            margin-top: 5rem;
+            padding-top: 3rem;
+            border-top: 1px solid var(--border);
+            animation: fadeInUp 0.8s ease-out 0.4s forwards;
+            opacity: 0;
+        }
+
+        .stat { text-align: center; }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--gradient-glow);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        /* Sections */
+        .section {
+            padding: 6rem 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-large {
+            padding: 8rem 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .container-narrow {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .section-label {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--green-400);
+            margin-bottom: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* What is Squaremind - Explainer */
+        .explainer {
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .explainer-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .explainer-text h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .explainer-text p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .explainer-text p:last-of-type {
+            margin-bottom: 2rem;
+        }
+
+        .explainer-visual {
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+        }
+
+        .visual-diagram {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .visual-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .visual-agent {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .visual-line {
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, var(--green-500), transparent);
+        }
+
+        .visual-center {
+            width: 80px;
+            height: 80px;
+            background: var(--bg-card);
+            border: 2px solid var(--green-500);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1rem auto;
+            font-size: 0.7rem;
+            text-align: center;
+            color: var(--green-400);
+        }
+
+        /* Problem/Solution */
+        .problem-solution {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .problem-card, .solution-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+
+        .problem-card {
+            border-color: #ef4444;
+            border-opacity: 0.3;
+        }
+
+        .problem-card:hover {
+            border-color: #ef4444;
+        }
+
+        .solution-card:hover {
+            border-color: var(--green-500);
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .problem-card .card-icon {
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .solution-card .card-icon {
+            background: rgba(34, 197, 94, 0.1);
+        }
+
+        .problem-card h3, .solution-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .problem-card p, .solution-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Pain Points */
+        .pain-points-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .pain-point {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .pain-point:hover {
+            border-color: var(--green-500);
+            transform: translateY(-4px);
+        }
+
+        .pain-point-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .pain-point h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .pain-point p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Use Cases */
+        .use-cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .use-case {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+
+        .use-case:hover {
+            border-color: var(--green-500);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(34, 197, 94, 0.1);
+        }
+
+        .use-case-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .use-case-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--gradient-primary);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .use-case h3 {
+            font-size: 1.3rem;
+        }
+
+        .use-case p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .use-case-example {
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .use-case-example code {
+            color: var(--green-400);
+        }
+
+        /* AGI Vision */
+        .agi-section {
+            background: linear-gradient(180deg, var(--bg-dark) 0%, var(--green-900) 50%, var(--bg-dark) 100%);
+            background-size: 100% 200%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .agi-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .agi-content h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .agi-content .lead {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+        }
+
+        .agi-pillars {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .agi-pillar {
+            background: rgba(10, 10, 10, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: left;
+        }
+
+        .agi-pillar h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.75rem;
+            color: var(--green-400);
+        }
+
+        .agi-pillar p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Getting Started */
+        .getting-started {
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+        }
+
+        .steps-vertical {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .step-item {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .step-number-large {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .step-content p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .step-code {
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+        }
+
+        /* Features grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transition: transform 0.4s;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-card:hover {
+            border-color: var(--green-500);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(34, 197, 94, 0.15);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gradient-primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* How it works */
+        .how-it-works {
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .step {
+            text-align: center;
+            padding: 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        .step:hover {
+            transform: translateY(-5px);
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin: 0 auto 1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .step:hover .step-number {
+            transform: scale(1.15);
+            box-shadow: 0 10px 30px rgba(34, 197, 94, 0.3);
+        }
+
+        .step h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .step p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Token section */
+        .token-section {
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .token-section::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--green-500) 0%, transparent 70%);
+            opacity: 0.05;
+            transform: translate(-50%, -50%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        .token-symbol {
+            font-size: 5rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--green-600), var(--green-400), #fff, var(--green-400), var(--green-600));
+            background-size: 300% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: 'JetBrains Mono', monospace;
+            animation: shimmer 4s linear infinite;
+            text-shadow: 0 0 60px rgba(34, 197, 94, 0.3);
+        }
+
+        /* Code block */
+        .code-block {
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            max-width: 700px;
+            margin: 2rem auto;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .code-block:hover {
+            border-color: var(--green-500);
+            box-shadow: 0 0 30px rgba(34, 197, 94, 0.1);
+        }
+
+        .code-comment { color: var(--text-muted); }
+        .code-keyword { color: var(--green-500); }
+        .code-string { color: var(--green-400); }
+
+        /* CTA */
+        .cta-section {
+            text-align: center;
+            padding: 8rem 2rem;
+        }
+
+        .cta-section h2 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .cta-section .tagline {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        /* FAQ */
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .faq-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .faq-item p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover { color: var(--green-400); }
+
+        .copyright {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .explainer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .problem-solution {
+                grid-template-columns: 1fr;
+            }
+
+            .agi-pillars {
+                grid-template-columns: 1fr;
+            }
+
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .step-item {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .step-number-large {
+                margin: 0 auto 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: flex; }
+            .hero-stats { flex-direction: column; gap: 2rem; }
+            .hero-cta { flex-direction: column; width: 100%; }
+            .hero-cta .btn { width: 100%; justify-content: center; }
+            .footer-content { flex-direction: column; text-align: center; }
+            .footer-links { flex-wrap: wrap; justify-content: center; }
+            .use-cases-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Mobile menu button */
+        .mobile-menu-btn {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            color: var(--text-primary);
+        }
+
+        .mobile-menu-btn:hover {
+            background: var(--bg-card);
+            border-color: var(--green-500);
+        }
+
+        /* Mobile menu overlay */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 73px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 99;
+            padding: 2rem;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 1.25rem;
+            font-weight: 500;
+            padding: 1rem;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .mobile-menu a:hover {
+            background: var(--bg-card);
+            color: var(--green-400);
+        }
+
+        .mobile-menu .btn {
+            margin-top: 1rem;
+            justify-content: center;
+        }
+
+        /* Scroll animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Highlight text */
+        .highlight {
+            color: var(--green-400);
+        }
+
+        .text-gradient {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+    <div class="bg-glow bg-glow-3"></div>
+
+    <nav>
+        <div class="nav-content">
+            <a href="#" class="logo">
+                <svg class="logo-icon" viewBox="0 0 100 100">
+                    <rect width="100" height="100" rx="18" fill="#0a0a0a"/>
+                    <g fill="none" stroke="#22C55E" transform="translate(50,50)">
+                        <polygon points="0,-42 4,-10 0,0 -4,-10" stroke-width="3"/>
+                        <polygon points="0,-35 2,-8 0,0 -2,-8" transform="rotate(58)" stroke-width="1.5"/>
+                        <polygon points="0,-42 5,-8 0,2 -5,-8" transform="rotate(108)" stroke-width="2.5"/>
+                        <polygon points="0,-30 2,-6 0,0 -2,-6" transform="rotate(165)" stroke-width="1"/>
+                        <polygon points="0,-44 4,-10 0,0 -4,-10" transform="rotate(220)" stroke-width="2"/>
+                        <polygon points="0,-38 3,-6 0,0 -3,-6" transform="rotate(280)" stroke-width="1.5"/>
+                        <polygon points="0,-40 4,-8 0,0 -4,-8" transform="rotate(330)" stroke-width="2.5"/>
+                        <circle cx="0" cy="0" r="10" stroke-width="2"/>
+                        <circle cx="0" cy="0" r="4" fill="#22C55E" stroke="none"/>
+                    </g>
+                </svg>
+                squaremind
+            </a>
+            <div class="nav-links">
+                <a href="#what">What</a>
+                <a href="#why">Why</a>
+                <a href="#how">How</a>
+                <a href="/whitepaper.html">Whitepaper</a>
+                <a href="#start">Get Started</a>
+                <a href="https://github.com/square-mind/squaremind">GitHub</a>
+                <a href="https://x.com/squaremindai">X</a>
+                <a href="#token" class="btn btn-primary">$MIND</a>
+            </div>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#what" onclick="closeMobileMenu()">What</a>
+        <a href="#why" onclick="closeMobileMenu()">Why</a>
+        <a href="#how" onclick="closeMobileMenu()">How</a>
+        <a href="/whitepaper.html">Whitepaper</a>
+        <a href="#start" onclick="closeMobileMenu()">Get Started</a>
+        <a href="https://github.com/square-mind/squaremind">GitHub</a>
+        <a href="https://x.com/squaremindai">X</a>
+        <a href="#token" class="btn btn-primary" onclick="closeMobileMenu()">$MIND</a>
+    </div>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-badge">$MIND · Collective Intelligence Protocol</div>
+        <h1>Many Agents.<br>One Mind.</h1>
+        <p class="hero-subtitle">
+            What if AI agents could work together like neurons in a brain? Squaremind is an open protocol for building autonomous AI collectives that coordinate, learn, and evolve—without central control.
+        </p>
+        <div class="hero-cta">
+            <a href="#start" class="btn btn-primary btn-large">
+                Get Started Free
+            </a>
+            <a href="https://github.com/square-mind/squaremind" class="btn btn-secondary btn-large">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                View on GitHub
+            </a>
+        </div>
+        <div class="hero-stats">
+            <div class="stat">
+                <div class="stat-value">1000+</div>
+                <div class="stat-label">Concurrent Agents</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">0</div>
+                <div class="stat-label">Central Controllers</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">100%</div>
+                <div class="stat-label">Open Source</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What is Squaremind -->
+    <section id="what" class="section section-large explainer">
+        <div class="container">
+            <div class="explainer-content reveal">
+                <div class="explainer-text">
+                    <span class="section-label">What is Squaremind?</span>
+                    <h2>AI agents that work together like a hive mind</h2>
+                    <p>
+                        Squaremind is an <strong>open-source protocol</strong> for building collectives of AI agents that coordinate autonomously. Instead of one AI doing everything, many specialized agents collaborate—each with their own identity, skills, and reputation.
+                    </p>
+                    <p>
+                        Think of it like a company where every employee is an AI: a coder, a reviewer, a researcher, a writer. They bid on tasks, stake their reputation, and get rewarded for good work. No manager needed.
+                    </p>
+                    <p>
+                        The result? <span class="highlight">Emergent collective intelligence</span>—the whole becomes greater than the sum of its parts.
+                    </p>
+                    <a href="#how" class="btn btn-secondary">See how it works →</a>
+                </div>
+                <div class="explainer-visual">
+                    <div class="visual-diagram">
+                        <div class="visual-row">
+                            <div class="visual-agent">🧑‍💻</div>
+                            <div class="visual-line"></div>
+                        </div>
+                        <div class="visual-row">
+                            <div class="visual-agent">🔍</div>
+                            <div class="visual-line"></div>
+                        </div>
+                        <div class="visual-center">COLLECTIVE<br>MIND</div>
+                        <div class="visual-row">
+                            <div class="visual-agent">📝</div>
+                            <div class="visual-line"></div>
+                        </div>
+                        <div class="visual-row">
+                            <div class="visual-agent">🛡️</div>
+                            <div class="visual-line"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Squaremind -->
+    <section id="why" class="section section-large">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">The Problem</span>
+                <h2>Current AI frameworks are broken</h2>
+                <p>Building multi-agent systems today is painful. Here's why.</p>
+            </div>
+
+            <div class="pain-points-grid reveal">
+                <div class="pain-point">
+                    <div class="pain-point-icon">🎯</div>
+                    <h4>Single Point of Failure</h4>
+                    <p>One orchestrator controls everything. If it fails or makes bad decisions, the whole system breaks.</p>
+                </div>
+                <div class="pain-point">
+                    <div class="pain-point-icon">🔒</div>
+                    <h4>No Agent Identity</h4>
+                    <p>Agents are disposable. No persistence, no memory, no way to build trust over time.</p>
+                </div>
+                <div class="pain-point">
+                    <div class="pain-point-icon">🎲</div>
+                    <h4>Unfair Task Assignment</h4>
+                    <p>Tasks are assigned arbitrarily. No market, no bidding, no reputation—just hardcoded rules.</p>
+                </div>
+                <div class="pain-point">
+                    <div class="pain-point-icon">🧱</div>
+                    <h4>Rigid Hierarchies</h4>
+                    <p>Fixed workflows that can't adapt. No emergence, no self-organization, no intelligence.</p>
+                </div>
+                <div class="pain-point">
+                    <div class="pain-point-icon">🏝️</div>
+                    <h4>Isolated Knowledge</h4>
+                    <p>Each agent starts from scratch. No shared memory, no collective learning.</p>
+                </div>
+                <div class="pain-point">
+                    <div class="pain-point-icon">📈</div>
+                    <h4>Doesn't Scale</h4>
+                    <p>Adding more agents adds more complexity. Coordination becomes a bottleneck.</p>
+                </div>
+            </div>
+
+            <div class="section-header reveal" style="margin-top: 6rem;">
+                <span class="section-label">The Solution</span>
+                <h2>Squaremind fixes all of this</h2>
+            </div>
+
+            <div class="problem-solution reveal">
+                <div class="solution-card">
+                    <div class="card-icon">✓</div>
+                    <h3>Decentralized Coordination</h3>
+                    <p>No central orchestrator. Agents coordinate through gossip protocols and consensus. The system runs even if individual agents fail.</p>
+                </div>
+                <div class="solution-card">
+                    <div class="card-icon">✓</div>
+                    <h3>Cryptographic Identity</h3>
+                    <p>Every agent has an Ed25519 keypair. Persistent identity, verifiable actions, reputation that follows them.</p>
+                </div>
+            </div>
+            <div class="problem-solution reveal" style="margin-top: 1.5rem;">
+                <div class="solution-card">
+                    <div class="card-icon">✓</div>
+                    <h3>Fair Market Mechanisms</h3>
+                    <p>Agents bid on tasks based on capability and stake reputation. Best match wins. Transparent, fair, efficient.</p>
+                </div>
+                <div class="solution-card">
+                    <div class="card-icon">✓</div>
+                    <h3>Emergent Intelligence</h3>
+                    <p>Self-organizing swarms that adapt and evolve. The collective gets smarter as it grows.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases -->
+    <section class="section section-large" style="background: var(--bg-card); border-top: 1px solid var(--border);">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">Use Cases</span>
+                <h2>What can you build with Squaremind?</h2>
+                <p>From coding swarms to research collectives, the possibilities are endless.</p>
+            </div>
+
+            <div class="use-cases-grid">
+                <div class="use-case reveal">
+                    <div class="use-case-header">
+                        <div class="use-case-icon">💻</div>
+                        <h3>Autonomous Dev Teams</h3>
+                    </div>
+                    <p>A collective of coders, reviewers, and testers that builds software autonomously. Submit a feature request, get working code.</p>
+                    <div class="use-case-example">
+                        <code>sqm task submit "Build user auth with JWT"</code><br>
+                        → Coder writes code<br>
+                        → Reviewer checks quality<br>
+                        → Tester runs tests<br>
+                        → <span style="color: var(--green-400);">✓ Feature complete</span>
+                    </div>
+                </div>
+
+                <div class="use-case reveal">
+                    <div class="use-case-header">
+                        <div class="use-case-icon">🔬</div>
+                        <h3>Research Swarms</h3>
+                    </div>
+                    <p>Multiple agents researching different angles of a problem, synthesizing findings, and generating insights no single agent could.</p>
+                    <div class="use-case-example">
+                        <code>sqm task submit "Research quantum computing trends"</code><br>
+                        → 5 researchers explore different sources<br>
+                        → Synthesizer combines findings<br>
+                        → <span style="color: var(--green-400);">✓ Comprehensive report</span>
+                    </div>
+                </div>
+
+                <div class="use-case reveal">
+                    <div class="use-case-header">
+                        <div class="use-case-icon">🎨</div>
+                        <h3>Creative Collectives</h3>
+                    </div>
+                    <p>Writers, editors, and designers collaborating on content. Brainstorm, draft, refine, polish—all autonomously.</p>
+                    <div class="use-case-example">
+                        <code>sqm task submit "Create a landing page for..."</code><br>
+                        → Writer creates copy<br>
+                        → Designer suggests layout<br>
+                        → Editor polishes<br>
+                        → <span style="color: var(--green-400);">✓ Publication ready</span>
+                    </div>
+                </div>
+
+                <div class="use-case reveal">
+                    <div class="use-case-header">
+                        <div class="use-case-icon">🛡️</div>
+                        <h3>Security Auditors</h3>
+                    </div>
+                    <p>A team of security specialists that continuously scans code, identifies vulnerabilities, and suggests fixes.</p>
+                    <div class="use-case-example">
+                        <code>sqm task submit "Audit smart contract"</code><br>
+                        → Scanner finds issues<br>
+                        → Analyst assesses severity<br>
+                        → Fixer proposes solutions<br>
+                        → <span style="color: var(--green-400);">✓ Security report</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AGI Vision -->
+    <section class="section section-large agi-section">
+        <div class="container">
+            <div class="agi-content reveal">
+                <span class="section-label">The Vision</span>
+                <h2>The Path to AGI</h2>
+                <p class="lead">
+                    AGI won't come from a single massive model. It will emerge from many specialized intelligences working together—just like the human brain is made of billions of specialized neurons.
+                </p>
+                <p class="lead">
+                    Squaremind is infrastructure for that future.
+                </p>
+
+                <div class="agi-pillars">
+                    <div class="agi-pillar reveal">
+                        <h4>Specialization</h4>
+                        <p>Instead of one model trying to do everything, many agents master specific domains. A coding agent that's world-class at code. A research agent that excels at synthesis.</p>
+                    </div>
+                    <div class="agi-pillar reveal">
+                        <h4>Coordination</h4>
+                        <p>The magic happens when specialists collaborate. Squaremind provides the protocols for agents to find each other, communicate, and work together effectively.</p>
+                    </div>
+                    <div class="agi-pillar reveal">
+                        <h4>Emergence</h4>
+                        <p>When enough agents coordinate well, something remarkable happens: collective intelligence emerges. The swarm becomes smarter than any individual.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how" class="section how-it-works">
+        <div class="section-header reveal">
+            <span class="section-label">How It Works</span>
+            <h2>From task to completion—no orchestrator needed</h2>
+            <p>Four steps. Fully autonomous. Verifiable at every stage.</p>
+        </div>
+        <div class="steps">
+            <div class="step reveal">
+                <div class="step-number">1</div>
+                <h4>Task Broadcast</h4>
+                <p>You submit a task. It spreads through the network via gossip protocol—every agent hears about it.</p>
+            </div>
+            <div class="step reveal">
+                <div class="step-number">2</div>
+                <h4>Fair Bidding</h4>
+                <p>Capable agents bid based on their skills. They stake reputation—putting their track record on the line.</p>
+            </div>
+            <div class="step reveal">
+                <div class="step-number">3</div>
+                <h4>Best Match Wins</h4>
+                <p>Transparent matching algorithm selects the optimal agent. No favoritism, no politics—just merit.</p>
+            </div>
+            <div class="step reveal">
+                <div class="step-number">4</div>
+                <h4>Execute & Verify</h4>
+                <p>Agent completes task. Quality is verified. Good work = reputation boost. Bad work = reputation penalty.</p>
+            </div>
+        </div>
+        <div class="code-block reveal">
+            <span class="code-comment">// It's this simple</span><br>
+            collective := squaremind.<span class="code-keyword">NewCollective</span>(<span class="code-string">"MySwarm"</span>)<br><br>
+            <span class="code-comment">// Agents coordinate autonomously</span><br>
+            result := collective.<span class="code-keyword">Submit</span>(<span class="code-string">"Build OAuth2 authentication"</span>)<br><br>
+            <span class="code-comment">// Many agents. One mind. One result.</span><br>
+            fmt.Println(result.Output)
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="section">
+        <div class="section-header reveal">
+            <span class="section-label">Core Features</span>
+            <h2>Built for autonomous coordination</h2>
+            <p>Everything you need to build AI collectives that actually work.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card reveal">
+                <div class="feature-icon">🔐</div>
+                <h3>Cryptographic Identity</h3>
+                <p>Every agent has an Ed25519 keypair. Actions are signed and verifiable. Identity persists across sessions.</p>
+            </div>
+            <div class="feature-card reveal">
+                <div class="feature-icon">⚖️</div>
+                <h3>Fair Task Markets</h3>
+                <p>Agents bid on tasks they're qualified for. Reputation staking ensures skin in the game. Best agent wins.</p>
+            </div>
+            <div class="feature-card reveal">
+                <div class="feature-icon">🧠</div>
+                <h3>Shared Memory</h3>
+                <p>Collective knowledge that persists. Agents learn from each other. The swarm gets smarter over time.</p>
+            </div>
+            <div class="feature-card reveal">
+                <div class="feature-icon">📊</div>
+                <h3>Reputation System</h3>
+                <p>Multi-dimensional trust scores. Reliability, quality, cooperation, honesty—all tracked and verifiable.</p>
+            </div>
+            <div class="feature-card reveal">
+                <div class="feature-icon">🔄</div>
+                <h3>BFT Consensus</h3>
+                <p>Byzantine fault-tolerant voting for collective decisions. The swarm agrees, even with bad actors.</p>
+            </div>
+            <div class="feature-card reveal">
+                <div class="feature-icon">📈</div>
+                <h3>Cognitive Scaling</h3>
+                <p>Intelligence grows superlinearly with collective size. More agents = exponentially more capability.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Getting Started -->
+    <section id="start" class="section section-large getting-started">
+        <div class="container container-narrow">
+            <div class="section-header reveal">
+                <span class="section-label">Get Started</span>
+                <h2>Up and running in 2 minutes</h2>
+                <p>No signup required. No API keys needed for local testing.</p>
+            </div>
+
+            <div class="steps-vertical">
+                <div class="step-item reveal">
+                    <div class="step-number-large">1</div>
+                    <div class="step-content">
+                        <h4>Install</h4>
+                        <p>Clone and build, or use Go install directly.</p>
+                        <div class="step-code">
+                            <span style="color: var(--text-muted);"># Option 1: Go install</span><br>
+                            go install github.com/square-mind/squaremind/cmd/sqm@latest<br><br>
+                            <span style="color: var(--text-muted);"># Option 2: From source</span><br>
+                            git clone https://github.com/square-mind/squaremind.git<br>
+                            cd squaremind && make build
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-item reveal">
+                    <div class="step-number-large">2</div>
+                    <div class="step-content">
+                        <h4>Create a Collective</h4>
+                        <p>Initialize your swarm and spawn some agents.</p>
+                        <div class="step-code">
+                            <span style="color: var(--text-muted);"># Initialize</span><br>
+                            sqm init MySwarm<br><br>
+                            <span style="color: var(--text-muted);"># Spawn agents</span><br>
+                            sqm spawn Coder --capabilities code.write,code.review<br>
+                            sqm spawn Reviewer --capabilities code.review,security
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-item reveal">
+                    <div class="step-number-large">3</div>
+                    <div class="step-content">
+                        <h4>Submit Tasks</h4>
+                        <p>Give the collective something to do.</p>
+                        <div class="step-code">
+                            <span style="color: var(--text-muted);"># Submit a task</span><br>
+                            sqm task submit "Implement user authentication" --requires code.write<br><br>
+                            <span style="color: var(--text-muted);"># Run the collective</span><br>
+                            sqm run
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 3rem;" class="reveal">
+                <a href="https://github.com/square-mind/squaremind#quick-start" class="btn btn-primary btn-large">
+                    Full Documentation →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Whitepaper -->
+    <section id="whitepaper" class="section" style="background: var(--bg-card); border-top: 1px solid var(--border);">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">Technical Documentation</span>
+                <h2>Read the Whitepaper</h2>
+                <p>Dive deep into the protocol architecture, coordination mechanisms, and security model.</p>
+            </div>
+
+            <div class="problem-solution reveal">
+                <div class="solution-card" style="border-color: var(--green-500);">
+                    <div class="card-icon">1</div>
+                    <h3>Agent Identity Protocol</h3>
+                    <p>Ed25519 cryptographic identity, capability declarations, and multi-dimensional reputation scoring for every agent.</p>
+                </div>
+                <div class="solution-card" style="border-color: var(--green-500);">
+                    <div class="card-icon">2</div>
+                    <h3>Fair Coordination Layer</h3>
+                    <p>Gossip protocols for message propagation, fair task markets with reputation staking, and BFT consensus.</p>
+                </div>
+            </div>
+            <div class="problem-solution reveal" style="margin-top: 1.5rem;">
+                <div class="solution-card" style="border-color: var(--green-500);">
+                    <div class="card-icon">3</div>
+                    <h3>Collective Mind Substrate</h3>
+                    <p>Shared memory, knowledge graphs, and bio-inspired swarm patterns for emergent collective intelligence.</p>
+                </div>
+                <div class="solution-card" style="border-color: var(--green-500);">
+                    <div class="card-icon">+</div>
+                    <h3>Security & Future Work</h3>
+                    <p>Threat models, trust assumptions, and the roadmap for persistent storage, multi-collective communication, and more.</p>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 3rem;" class="reveal">
+                <a href="/whitepaper.html" class="btn btn-primary btn-large">
+                    Read Full Whitepaper →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">FAQ</span>
+                <h2>Common questions</h2>
+            </div>
+
+            <div class="faq-grid">
+                <div class="faq-item reveal">
+                    <h4>Is this free to use?</h4>
+                    <p>Yes, Squaremind is 100% open source under the MIT license. Use it for anything—commercial or personal.</p>
+                </div>
+                <div class="faq-item reveal">
+                    <h4>Do I need API keys?</h4>
+                    <p>For local testing, no. For real LLM capabilities, you'll need an Anthropic or OpenAI API key.</p>
+                </div>
+                <div class="faq-item reveal">
+                    <h4>How is this different from LangChain/AutoGPT?</h4>
+                    <p>Those are orchestration frameworks with central control. Squaremind is a decentralized protocol where agents self-organize through markets and consensus.</p>
+                </div>
+                <div class="faq-item reveal">
+                    <h4>What's the $MIND token for?</h4>
+                    <p>$MIND is the native token on Solana. It's used for governance and supporting the project. The protocol itself doesn't require tokens.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Token -->
+    <section id="token" class="section token-section">
+        <div class="section-header reveal">
+            <h2 class="token-symbol">$MIND</h2>
+            <p>The native token of the Squaremind protocol on Solana.</p>
+        </div>
+        <div style="text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1.5rem;" class="reveal">
+            <a href="https://bags.fm" class="btn btn-primary btn-large" style="display: inline-flex; align-items: center; gap: 0.75rem;">
+                <svg width="24" height="24" viewBox="0 0 100 100" fill="currentColor">
+                    <ellipse cx="50" cy="18" rx="25" ry="12"/>
+                    <path d="M25 25 C15 30, 10 50, 15 75 C20 95, 80 95, 85 75 C90 50, 85 30, 75 25 C70 30, 30 30, 25 25 Z"/>
+                    <text x="50" y="65" text-anchor="middle" font-size="30" font-weight="bold" fill="#0a0a0a">$</text>
+                </svg>
+                Buy on BAGS.FM
+            </a>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">Launching on BAGS.FM - The premier Solana token launchpad</p>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <h2 class="reveal">Join the Mind</h2>
+        <p class="tagline reveal">Many Agents. One Mind.</p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;" class="reveal">
+            <a href="https://github.com/square-mind/squaremind" class="btn btn-primary btn-large">Star on GitHub</a>
+            <a href="https://x.com/squaremindai" class="btn btn-secondary btn-large">Follow @squaremindai</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="https://github.com/square-mind/squaremind">GitHub</a>
+                <a href="/whitepaper.html">Whitepaper</a>
+                <a href="https://github.com/square-mind/squaremind#documentation">Docs</a>
+                <a href="https://x.com/squaremindai">X</a>
+            </div>
+            <div class="copyright">
+                © 2026 Squaremind. MIT License.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll reveal animation
+        const reveals = document.querySelectorAll('.reveal');
+
+        function revealOnScroll() {
+            reveals.forEach(el => {
+                const windowHeight = window.innerHeight;
+                const elementTop = el.getBoundingClientRect().top;
+                const revealPoint = 150;
+
+                if (elementTop < windowHeight - revealPoint) {
+                    el.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll(); // Initial check
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Mobile menu functions
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+        }
+
+        function closeMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.remove('active');
+        }
+
+        // Close mobile menu on resize to desktop
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                closeMobileMenu();
+            }
+        });
+    </script>
+</body>
+</html>

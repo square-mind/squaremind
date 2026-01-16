@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#0a0a0a"/>
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1a1a1a" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <circle cx="600" cy="250" r="200" fill="#22C55E" opacity="0.08"/>
+  <circle cx="600" cy="250" r="120" fill="#22C55E" opacity="0.05"/>
+  <g fill="none" stroke="#22C55E" transform="translate(600,250)">
+    <polygon points="0,-140 14,-35 0,0 -14,-35" stroke-width="10"/>
+    <polygon points="0,-116 7,-27 0,0 -7,-27" transform="rotate(58)" stroke-width="5"/>
+    <polygon points="0,-140 17,-27 0,6 -17,-27" transform="rotate(108)" stroke-width="8"/>
+    <polygon points="0,-100 7,-19 0,0 -7,-19" transform="rotate(165)" stroke-width="3"/>
+    <polygon points="0,-148 14,-35 0,0 -14,-35" transform="rotate(220)" stroke-width="6"/>
+    <polygon points="0,-124 10,-19 0,0 -10,-19" transform="rotate(280)" stroke-width="5"/>
+    <polygon points="0,-132 14,-27 0,0 -14,-27" transform="rotate(330)" stroke-width="8"/>
+    <circle cx="0" cy="0" r="35" stroke-width="6"/>
+    <circle cx="0" cy="0" r="14" fill="#22C55E" stroke="none"/>
+  </g>
+  <text x="600" y="460" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="72" font-weight="800" fill="#f8fafc">Squaremind</text>
+  <text x="600" y="520" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="28" font-weight="500" fill="#22C55E">Many Agents. One Mind.</text>
+  <rect x="540" y="555" width="120" height="36" rx="18" fill="#22C55E" opacity="0.15"/>
+  <text x="600" y="580" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="18" font-weight="600" fill="#22C55E">$MIND</text>
+</svg>
