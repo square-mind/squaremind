@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/spf13/cobra"
+
 	"github.com/square-mind/squaremind/pkg/agent"
 	"github.com/square-mind/squaremind/pkg/cli"
 	"github.com/square-mind/squaremind/pkg/collective"

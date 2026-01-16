@@ -68,11 +68,11 @@ func (sa *SignedAction) Verify(publicKey ed25519.PublicKey) bool {
 
 // DelegationProof represents a proof of delegated authority
 type DelegationProof struct {
-	DelegatorSID   string    `json:"delegator_sid"`
-	DelegateSID    string    `json:"delegate_sid"`
-	Capability     CapabilityType `json:"capability"`
-	ExpiresAt      time.Time `json:"expires_at"`
-	Signature      []byte    `json:"signature"`
+	DelegatorSID string         `json:"delegator_sid"`
+	DelegateSID  string         `json:"delegate_sid"`
+	Capability   CapabilityType `json:"capability"`
+	ExpiresAt    time.Time      `json:"expires_at"`
+	Signature    []byte         `json:"signature"`
 }
 
 // NewDelegationProof creates a new delegation proof

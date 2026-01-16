@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+
 	"github.com/square-mind/squaremind/pkg/identity"
 )
 
