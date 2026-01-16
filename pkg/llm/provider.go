@@ -33,14 +33,19 @@ type CompletionResponse struct {
 type ModelType string
 
 const (
-	ModelClaude3Opus   ModelType = "claude-3-opus-20240229"
-	ModelClaude3Sonnet ModelType = "claude-sonnet-4-20250514"
-	ModelClaude3Haiku  ModelType = "claude-3-haiku-20240307"
-	ModelGPT4          ModelType = "gpt-4"
-	ModelGPT4Turbo     ModelType = "gpt-4-turbo"
-	ModelGPT35Turbo    ModelType = "gpt-3.5-turbo"
-	ModelLlama2        ModelType = "llama-2"
-	ModelMistral       ModelType = "mistral"
+	// Claude models (primary)
+	ModelClaude35Sonnet ModelType = "claude-3-5-sonnet-20241022" // Default, recommended
+	ModelClaude3Opus    ModelType = "claude-3-opus-20240229"
+	ModelClaude3Sonnet  ModelType = "claude-3-sonnet-20240229"
+	ModelClaude3Haiku   ModelType = "claude-3-haiku-20240307"
+
+	// OpenAI models (fallback)
+	ModelGPT4      ModelType = "gpt-4"
+	ModelGPT4Turbo ModelType = "gpt-4-turbo"
+	ModelGPT35     ModelType = "gpt-3.5-turbo"
+
+	// Default model
+	DefaultModel ModelType = ModelClaude35Sonnet
 )
 
 // ProviderConfig holds common provider configuration

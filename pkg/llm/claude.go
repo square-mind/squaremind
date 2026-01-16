@@ -31,7 +31,7 @@ func NewClaudeProvider(apiKey string) *ClaudeProvider {
 		httpClient: &http.Client{
 			Timeout: 120 * time.Second,
 		},
-		model: string(ModelClaude3Sonnet),
+		model: string(ModelClaude35Sonnet),
 	}
 }
 

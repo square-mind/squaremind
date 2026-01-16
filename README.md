@@ -51,6 +51,32 @@ make build
 go install github.com/square-mind/squaremind/cmd/sqm@latest
 ```
 
+### Configure API Key (BYOK)
+
+Squaremind uses **Bring Your Own Key** — you provide your own LLM API key.
+
+**Claude is the primary/default LLM** (recommended). OpenAI is supported as a fallback.
+
+```bash
+# Option 1: Environment variable (recommended)
+export ANTHROPIC_API_KEY=your-key-here
+
+# Option 2: Config file (~/.squaremind/config.yaml)
+mkdir -p ~/.squaremind
+echo "anthropic_api_key: your-key-here" > ~/.squaremind/config.yaml
+
+# Option 3: CLI flag (per command)
+sqm demo --api-key your-key-here
+```
+
+**Verify your setup:**
+
+```bash
+sqm demo
+```
+
+This runs a quick test to confirm your API key works.
+
 ### Create a Collective
 
 ```bash
@@ -175,7 +201,7 @@ squaremind/
 
 $MIND is the native token of the Squaremind protocol on Solana.
 
-→ [Buy on pump.fun](https://pump.fun)
+→ [Buy on BAGS.FM](https://bags.fm)
 
 ## Community
 

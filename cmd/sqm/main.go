@@ -12,6 +12,7 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/squaremind/squaremind/pkg/agent"
 	"github.com/squaremind/squaremind/pkg/collective"
+	"github.com/squaremind/squaremind/pkg/config"
 	"github.com/squaremind/squaremind/pkg/identity"
 	"github.com/squaremind/squaremind/pkg/llm"
 )
@@ -19,9 +20,13 @@ import (
 var (
 	version = "0.1.0"
 
+	// Global flags
+	apiKey string
+
 	// Global state for CLI session
 	activeCollective *collective.Collective
 	provider         llm.Provider
+	cfg              *config.Config
 )
 
 var rootCmd = &cobra.Command{
@@ -34,6 +39,31 @@ Many Agents. One Mind. Fair coordination. Transparent markets.
 
 Learn more: https://squaremind.xyz`,
 	Version: version,
+	PersistentPreRun: func(cmd *cobra.Command, args []string) {
+		// Load config file
+		var err error
+		cfg, err = config.Load()
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Warning: could not load config: %v\n", err)
+			cfg = &config.Config{}
+		}
+
+		// Initialize provider with priority: CLI flag > env var > config file
+		key := apiKey
+		if key == "" {
+			key = cfg.GetAnthropicKey()
+		}
+		if key != "" {
+			provider = llm.NewClaudeProvider(key)
+			return
+		}
+
+		// Fallback to OpenAI if no Anthropic key
+		openaiKey := cfg.GetOpenAIKey()
+		if openaiKey != "" {
+			provider = llm.NewOpenAIProvider(openaiKey)
+		}
+	},
 }
 
 var initCmd = &cobra.Command{
@@ -311,6 +341,59 @@ var configCmd = &cobra.Command{
 	Short: "Configuration management",
 }
 
+var demoCmd = &cobra.Command{
+	Use:   "demo",
+	Short: "Run a quick demo to verify your API key works",
+	Long: `Run a simple demo that spawns an agent and has it complete a task.
+This verifies your API key is configured correctly.
+
+Example:
+  sqm demo --api-key YOUR_ANTHROPIC_API_KEY
+
+Or set the environment variable:
+  export ANTHROPIC_API_KEY=YOUR_KEY
+  sqm demo`,
+	Run: func(cmd *cobra.Command, args []string) {
+		if provider == nil {
+			fmt.Fprintln(os.Stderr, "\n  Error: No API key configured.")
+			fmt.Fprintln(os.Stderr, "\n  Set your API key using one of these methods:")
+			fmt.Fprintln(os.Stderr, "    1. CLI flag:    sqm demo --api-key YOUR_KEY")
+			fmt.Fprintln(os.Stderr, "    2. Environment: export ANTHROPIC_API_KEY=YOUR_KEY")
+			fmt.Fprintln(os.Stderr, "    3. Config file: ~/.squaremind/config.yaml")
+			fmt.Fprintln(os.Stderr, "")
+			os.Exit(1)
+		}
+
+		fmt.Println("\n  Squaremind Demo")
+		fmt.Println("  " + strings.Repeat("-", 40))
+		fmt.Printf("  Provider: %s\n", provider.Name())
+		fmt.Println("  Running demo...\n")
+
+		// Create a simple completion request
+		ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+		defer cancel()
+
+		req := llm.CompletionRequest{
+			Prompt:    "Say 'Hello from Squaremind!' in a creative way, then briefly explain what a multi-agent AI system is in one sentence.",
+			MaxTokens: 150,
+		}
+
+		fmt.Println("  Sending request to LLM...")
+		resp, err := provider.Complete(ctx, req)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "\n  Error: %v\n\n", err)
+			os.Exit(1)
+		}
+
+		fmt.Println("\n  Response from AI:")
+		fmt.Println("  " + strings.Repeat("-", 40))
+		fmt.Printf("  %s\n", resp.Content)
+		fmt.Println("  " + strings.Repeat("-", 40))
+		fmt.Printf("\n  Tokens used: %d\n", resp.TokensUsed)
+		fmt.Println("  Demo complete!\n")
+	},
+}
+
 var configSetCmd = &cobra.Command{
 	Use:   "set [key] [value]",
 	Short: "Set a configuration value",
@@ -334,13 +417,16 @@ var configSetCmd = &cobra.Command{
 }
 
 func init() {
+	// Global flags
+	rootCmd.PersistentFlags().StringVar(&apiKey, "api-key", "", "Anthropic API key (overrides env and config)")
+
 	// Init command flags
 	initCmd.Flags().IntP("max-agents", "m", 100, "Maximum number of agents")
 	initCmd.Flags().Float64P("threshold", "t", 0.67, "Consensus threshold (0.0-1.0)")
 
 	// Spawn command flags
 	spawnCmd.Flags().StringSliceP("capabilities", "c", []string{"code.write"}, "Agent capabilities")
-	spawnCmd.Flags().StringP("model", "m", "claude-sonnet-4-20250514", "LLM model to use")
+	spawnCmd.Flags().StringP("model", "m", string(llm.DefaultModel), "LLM model to use")
 
 	// Task submit flags
 	taskSubmitCmd.Flags().StringP("complexity", "x", "medium", "Task complexity (low/medium/high)")
@@ -362,6 +448,7 @@ func init() {
 	rootCmd.AddCommand(taskCmd)
 	rootCmd.AddCommand(agentCmd)
 	rootCmd.AddCommand(configCmd)
+	rootCmd.AddCommand(demoCmd)
 }
 
 func main() {
