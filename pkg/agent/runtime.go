@@ -11,12 +11,12 @@ import (
 type Runtime struct {
 	mu sync.RWMutex
 
-	agents     map[string]*Agent // SID -> Agent
-	maxAgents  int
-	taskQueue  chan *Task
-	results    chan *TaskResult
-	stopChan   chan struct{}
-	wg         sync.WaitGroup
+	agents    map[string]*Agent // SID -> Agent
+	maxAgents int
+	taskQueue chan *Task
+	results   chan *TaskResult
+	stopChan  chan struct{}
+	wg        sync.WaitGroup
 }
 
 // RuntimeConfig configures the runtime

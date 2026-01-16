@@ -14,9 +14,9 @@ import (
 type LifecycleManager struct {
 	mu sync.RWMutex
 
-	runtime   *Runtime
-	provider  llm.Provider
-	model     string
+	runtime  *Runtime
+	provider llm.Provider
+	model    string
 
 	// Event handlers
 	onSpawn     []func(*Agent)
