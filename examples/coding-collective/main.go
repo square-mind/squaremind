@@ -15,6 +15,7 @@ import (
 	"github.com/squaremind/squaremind/pkg/agent"
 	"github.com/squaremind/squaremind/pkg/collective"
 	"github.com/squaremind/squaremind/pkg/identity"
+	"github.com/squaremind/squaremind/pkg/llm"
 )
 
 func main() {
@@ -40,6 +41,19 @@ func main() {
 		MaxAgents:          20,
 		ConsensusThreshold: 0.67,
 	})
+
+	// Create LLM provider (uses simulated responses if no API key set)
+	var provider llm.Provider
+	if apiKey := os.Getenv("ANTHROPIC_API_KEY"); apiKey != "" {
+		provider = llm.NewClaudeProvider(apiKey)
+		fmt.Println("Using Claude API\n")
+	} else if apiKey := os.Getenv("OPENAI_API_KEY"); apiKey != "" {
+		provider = llm.NewOpenAIProvider(apiKey)
+		fmt.Println("Using OpenAI API\n")
+	} else {
+		fmt.Println("No API key set - using simulated responses")
+		fmt.Println("Set ANTHROPIC_API_KEY or OPENAI_API_KEY for real LLM responses\n")
+	}
 
 	// Spawn specialized agents
 	agents := []struct {
@@ -84,7 +98,8 @@ func main() {
 		a, err := agent.NewAgent(agent.AgentConfig{
 			Name:         agentDef.name,
 			Capabilities: agentDef.caps,
-			Model:        "claude-sonnet-4-20250514",
+			Provider:     provider,
+			Model:        string(llm.DefaultModel),
 		})
 		if err != nil {
 			panic(err)

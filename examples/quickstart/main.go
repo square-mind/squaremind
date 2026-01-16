@@ -41,10 +41,18 @@ func main() {
 		ReputationDecay:    0.01,
 	})
 
-	// Create LLM provider (optional - uses simulated responses if not set)
-	// Uncomment and add your API key to use real LLM:
-	// provider := llm.NewClaudeProvider(os.Getenv("ANTHROPIC_API_KEY"))
-	var provider llm.Provider // nil = simulated
+	// Create LLM provider (uses simulated responses if no API key set)
+	var provider llm.Provider
+	if apiKey := os.Getenv("ANTHROPIC_API_KEY"); apiKey != "" {
+		provider = llm.NewClaudeProvider(apiKey)
+		fmt.Println("Using Claude API")
+	} else if apiKey := os.Getenv("OPENAI_API_KEY"); apiKey != "" {
+		provider = llm.NewOpenAIProvider(apiKey)
+		fmt.Println("Using OpenAI API")
+	} else {
+		fmt.Println("No API key set - using simulated responses")
+		fmt.Println("Set ANTHROPIC_API_KEY or OPENAI_API_KEY for real LLM responses")
+	}
 
 	// Spawn agents
 	fmt.Println("Spawning agents...")
@@ -53,7 +61,7 @@ func main() {
 		Name:         "Coder",
 		Capabilities: []identity.CapabilityType{identity.CapCodeWrite, identity.CapCodeReview},
 		Provider:     provider,
-		Model:        "claude-sonnet-4-20250514",
+		Model:        string(llm.DefaultModel),
 	})
 	if err != nil {
 		panic(err)
@@ -63,7 +71,7 @@ func main() {
 		Name:         "Reviewer",
 		Capabilities: []identity.CapabilityType{identity.CapCodeReview, identity.CapSecurity},
 		Provider:     provider,
-		Model:        "claude-sonnet-4-20250514",
+		Model:        string(llm.DefaultModel),
 	})
 	if err != nil {
 		panic(err)
@@ -73,7 +81,7 @@ func main() {
 		Name:         "Architect",
 		Capabilities: []identity.CapabilityType{identity.CapArchitecture, identity.CapDocumentation},
 		Provider:     provider,
-		Model:        "claude-sonnet-4-20250514",
+		Model:        string(llm.DefaultModel),
 	})
 	if err != nil {
 		panic(err)

@@ -49,7 +49,7 @@ func NewTaskMarket() *TaskMarket {
 	return &TaskMarket{
 		listings:   make(map[string]*agent.Task),
 		bids:       make(map[string][]*Bid),
-		bidTimeout: 5 * time.Second,
+		bidTimeout: 100 * time.Millisecond, // Fast local matching
 	}
 }
 
