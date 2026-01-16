@@ -105,12 +105,12 @@ func (dp *DelegationProof) IsValid() bool {
 
 // ConsensusProof represents proof of collective consensus
 type ConsensusProof struct {
-	Round         int                   `json:"round"`
-	Proposal      string                `json:"proposal"`
-	Votes         map[string]Vote       `json:"votes"` // SID -> Vote
-	Threshold     float64               `json:"threshold"`
-	Result        string                `json:"result"` // "accepted", "rejected"
-	Timestamp     time.Time             `json:"timestamp"`
+	Round     int             `json:"round"`
+	Proposal  string          `json:"proposal"`
+	Votes     map[string]Vote `json:"votes"` // SID -> Vote
+	Threshold float64         `json:"threshold"`
+	Result    string          `json:"result"` // "accepted", "rejected"
+	Timestamp time.Time       `json:"timestamp"`
 }
 
 // Vote represents an agent's vote in consensus
