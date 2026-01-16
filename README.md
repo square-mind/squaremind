@@ -215,7 +215,9 @@ squaremind/
 
 $MIND is the native token of the Squaremind protocol on Solana.
 
-→ [Buy on BAGS.FM](https://bags.fm)
+**Contract Address:** `7X6QxLvNddxsSTt6Ai9c5sMrukEqVpJq2P9J6ujvBAGS`
+
+→ [Buy on BAGS.FM](https://bags.fm/token/7X6QxLvNddxsSTt6Ai9c5sMrukEqVpJq2P9J6ujvBAGS)
 
 ## Community
 
