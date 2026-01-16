@@ -213,7 +213,7 @@ func (m *EmergentBehaviorMonitor) Monitor(ctx context.Context) {
 
 	for _, behavior := range m.behaviors {
 		if behavior.Trigger(m.collective) {
-			behavior.Execute(ctx, m.collective)
+			_ = behavior.Execute(ctx, m.collective)
 		}
 	}
 }

@@ -50,10 +50,10 @@ const (
 
 // ProviderConfig holds common provider configuration
 type ProviderConfig struct {
-	APIKey      string
-	BaseURL     string
-	Timeout     int // seconds
-	MaxRetries  int
+	APIKey       string
+	BaseURL      string
+	Timeout      int // seconds
+	MaxRetries   int
 	DefaultModel string
 }
 

@@ -8,11 +8,11 @@ import (
 
 // ANSI color codes
 const (
-	Reset      = "\033[0m"
-	Bold       = "\033[1m"
-	Dim        = "\033[2m"
-	Italic     = "\033[3m"
-	Underline  = "\033[4m"
+	Reset     = "\033[0m"
+	Bold      = "\033[1m"
+	Dim       = "\033[2m"
+	Italic    = "\033[3m"
+	Underline = "\033[4m"
 
 	// Colors
 	Black   = "\033[30m"
