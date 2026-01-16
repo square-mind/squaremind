@@ -17,11 +17,11 @@ type ReputationRegistry struct {
 
 // ReputationEvent represents a reputation change event
 type ReputationEvent struct {
-	AgentSID   string    `json:"agent_sid"`
-	Type       string    `json:"type"` // "task_success", "task_failure", "peer_rating", "decay"
-	Delta      float64   `json:"delta"`
-	Reason     string    `json:"reason"`
-	Timestamp  time.Time `json:"timestamp"`
+	AgentSID  string    `json:"agent_sid"`
+	Type      string    `json:"type"` // "task_success", "task_failure", "peer_rating", "decay"
+	Delta     float64   `json:"delta"`
+	Reason    string    `json:"reason"`
+	Timestamp time.Time `json:"timestamp"`
 }
 
 // NewReputationRegistry creates a new reputation registry

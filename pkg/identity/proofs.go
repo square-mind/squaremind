@@ -8,10 +8,10 @@ import (
 
 // SignedAction represents an action signed by an agent
 type SignedAction struct {
-	Action    Action    `json:"action"`
-	AgentSID  string    `json:"agent_sid"`
-	Signature []byte    `json:"signature"`
-	Timestamp time.Time `json:"timestamp"`
+	Action    Action       `json:"action"`
+	AgentSID  string       `json:"agent_sid"`
+	Signature []byte       `json:"signature"`
+	Timestamp time.Time    `json:"timestamp"`
 	Proof     *ActionProof `json:"proof,omitempty"`
 }
 
