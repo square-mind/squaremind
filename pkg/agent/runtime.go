@@ -21,8 +21,8 @@ type Runtime struct {
 
 // RuntimeConfig configures the runtime
 type RuntimeConfig struct {
-	MaxAgents   int
-	TaskBuffer  int
+	MaxAgents  int
+	TaskBuffer int
 }
 
 // DefaultRuntimeConfig returns default configuration

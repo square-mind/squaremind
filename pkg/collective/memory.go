@@ -37,7 +37,7 @@ func NewCollectiveMemory() *CollectiveMemory {
 // CollectiveEpisode represents a memorable collective event
 type CollectiveEpisode struct {
 	ID           string                 `json:"id"`
-	Type         string                 `json:"type"` // "task_completed", "agent_joined", "consensus", etc.
+	Type         string                 `json:"type"`         // "task_completed", "agent_joined", "consensus", etc.
 	Participants []string               `json:"participants"` // Agent SIDs involved
 	Content      string                 `json:"content"`
 	Context      map[string]interface{} `json:"context"`
@@ -47,13 +47,13 @@ type CollectiveEpisode struct {
 
 // SharedContext represents an active shared context
 type SharedContext struct {
-	ID          string                 `json:"id"`
-	Name        string                 `json:"name"`
-	Data        map[string]interface{} `json:"data"`
-	Contributors []string              `json:"contributors"` // Agent SIDs
-	CreatedAt   time.Time              `json:"created_at"`
-	UpdatedAt   time.Time              `json:"updated_at"`
-	TTL         time.Duration          `json:"ttl"`
+	ID           string                 `json:"id"`
+	Name         string                 `json:"name"`
+	Data         map[string]interface{} `json:"data"`
+	Contributors []string               `json:"contributors"` // Agent SIDs
+	CreatedAt    time.Time              `json:"created_at"`
+	UpdatedAt    time.Time              `json:"updated_at"`
+	TTL          time.Duration          `json:"ttl"`
 }
 
 // Concept represents a semantic concept

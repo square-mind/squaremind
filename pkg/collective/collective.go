@@ -300,12 +300,12 @@ func (c *Collective) GetConsensus() *coordination.ConsensusEngine {
 
 // Stats returns collective statistics
 type CollectiveStats struct {
-	Name            string
-	AgentCount      int
-	ActiveTasks     int
-	CompletedTasks  int
-	PendingTasks    int
-	AvgReputation   float64
+	Name           string
+	AgentCount     int
+	ActiveTasks    int
+	CompletedTasks int
+	PendingTasks   int
+	AvgReputation  float64
 }
 
 // Stats returns current collective statistics
