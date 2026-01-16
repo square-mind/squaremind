@@ -127,7 +127,7 @@ func runSwarm(cmd *cobra.Command, args []string) {
 			continue
 		}
 
-		c.Join(a)
+		_ = c.Join(a)
 		agents = append(agents, a)
 		agentPrompts[a.Identity.SID] = role.prompt
 		spinner.StopWithMessage(true, fmt.Sprintf("%s%s%s - %s", cli.BrightGreen, role.name, cli.Reset, role.desc))
@@ -137,11 +137,11 @@ func runSwarm(cmd *cobra.Command, args []string) {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
 	defer cancel()
 
-	spinner := cli.NewSpinner("Starting collective intelligence...")
-	spinner.Start()
-	c.Start(ctx)
+	startSpinner := cli.NewSpinner("Starting collective intelligence...")
+	startSpinner.Start()
+	_ = c.Start(ctx)
 	time.Sleep(300 * time.Millisecond)
-	spinner.Stop(true)
+	startSpinner.Stop(true)
 
 	// Execute swarm coordination
 	fmt.Println(cli.Section("SWARM EXECUTION"))
