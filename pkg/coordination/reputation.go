@@ -4,7 +4,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/squaremind/squaremind/pkg/agent"
+	"github.com/square-mind/squaremind/pkg/agent"
 )
 
 // ReputationRegistry manages reputation scores for all agents

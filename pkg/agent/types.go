@@ -4,7 +4,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/squaremind/squaremind/pkg/identity"
+	"github.com/square-mind/squaremind/pkg/identity"
 )
 
 // TaskStatus represents the status of a task

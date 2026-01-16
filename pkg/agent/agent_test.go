@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/squaremind/squaremind/pkg/identity"
+	"github.com/square-mind/squaremind/pkg/identity"
 )
 
 func TestNewAgent(t *testing.T) {

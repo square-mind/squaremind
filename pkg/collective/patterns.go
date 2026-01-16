@@ -5,8 +5,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/squaremind/squaremind/pkg/agent"
-	"github.com/squaremind/squaremind/pkg/identity"
+	"github.com/square-mind/squaremind/pkg/agent"
+	"github.com/square-mind/squaremind/pkg/identity"
 )
 
 // SwarmPattern represents a swarm intelligence pattern

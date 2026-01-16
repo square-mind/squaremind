@@ -6,8 +6,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/squaremind/squaremind/pkg/identity"
-	"github.com/squaremind/squaremind/pkg/llm"
+	"github.com/square-mind/squaremind/pkg/identity"
+	"github.com/square-mind/squaremind/pkg/llm"
 )
 
 // LifecycleManager manages agent lifecycle events

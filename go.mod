@@ -1,4 +1,4 @@
-module github.com/squaremind/squaremind
+module github.com/square-mind/squaremind
 
 go 1.21
 

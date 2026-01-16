@@ -12,10 +12,10 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/squaremind/squaremind/pkg/agent"
-	"github.com/squaremind/squaremind/pkg/collective"
-	"github.com/squaremind/squaremind/pkg/identity"
-	"github.com/squaremind/squaremind/pkg/llm"
+	"github.com/square-mind/squaremind/pkg/agent"
+	"github.com/square-mind/squaremind/pkg/collective"
+	"github.com/square-mind/squaremind/pkg/identity"
+	"github.com/square-mind/squaremind/pkg/llm"
 )
 
 func main() {

@@ -9,11 +9,11 @@ import (
 	"time"
 
 	"github.com/spf13/cobra"
-	"github.com/squaremind/squaremind/pkg/agent"
-	"github.com/squaremind/squaremind/pkg/cli"
-	"github.com/squaremind/squaremind/pkg/collective"
-	"github.com/squaremind/squaremind/pkg/identity"
-	"github.com/squaremind/squaremind/pkg/llm"
+	"github.com/square-mind/squaremind/pkg/agent"
+	"github.com/square-mind/squaremind/pkg/cli"
+	"github.com/square-mind/squaremind/pkg/collective"
+	"github.com/square-mind/squaremind/pkg/identity"
+	"github.com/square-mind/squaremind/pkg/llm"
 )
 
 var swarmCmd = &cobra.Command{

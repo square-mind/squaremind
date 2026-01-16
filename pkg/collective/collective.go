@@ -7,8 +7,8 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/squaremind/squaremind/pkg/agent"
-	"github.com/squaremind/squaremind/pkg/coordination"
+	"github.com/square-mind/squaremind/pkg/agent"
+	"github.com/square-mind/squaremind/pkg/coordination"
 )
 
 var (

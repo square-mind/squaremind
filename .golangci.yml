@@ -20,7 +20,8 @@ linters-settings:
   errcheck:
     check-type-assertions: true
   govet:
-    check-shadowing: true
+    enable:
+      - shadow
   goimports:
     local-prefixes: github.com/square-mind/squaremind
 
