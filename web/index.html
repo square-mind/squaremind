@@ -1655,8 +1655,24 @@
             <h2 class="token-symbol">$MIND</h2>
             <p>The native token of the Squaremind protocol on Solana.</p>
         </div>
-        <div style="text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1.5rem;" class="reveal">
-            <a href="https://bags.fm/token/7X6QxLvNddxsSTt6Ai9c5sMrukEqVpJq2P9J6ujvBAGS" class="btn btn-primary btn-large" style="display: inline-flex; align-items: center; gap: 0.75rem;" target="_blank" rel="noopener">
+        <div style="text-align: center; display: flex; flex-direction: column; align-items: center; gap: 2rem;" class="reveal">
+            <!-- Contract Address Box -->
+            <div style="background: var(--bg-card); border: 2px solid var(--green-500); border-radius: 12px; padding: 1.5rem 2rem; max-width: 600px; width: 100%;">
+                <p style="color: var(--green-400); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem; font-weight: 600;">Contract Address (Solana)</p>
+                <div style="display: flex; align-items: center; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <code id="contract-address" style="color: var(--text-primary); font-size: 0.9rem; font-family: 'JetBrains Mono', monospace; word-break: break-all; background: var(--bg-dark); padding: 0.75rem 1rem; border-radius: 8px; border: 1px solid var(--border);">7X6QxLvNddxsSTt6Ai9c5sMrukEqVpJq2P9J6ujvBAGS</code>
+                    <button onclick="copyCA()" id="copy-btn" style="background: var(--green-500); color: white; border: none; padding: 0.75rem 1.25rem; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.85rem; display: flex; align-items: center; gap: 0.5rem; transition: all 0.2s;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        Copy
+                    </button>
+                </div>
+            </div>
+
+            <!-- Buy Button -->
+            <a href="https://bags.fm/token/7X6QxLvNddxsSTt6Ai9c5sMrukEqVpJq2P9J6ujvBAGS" class="btn btn-primary btn-large" style="display: inline-flex; align-items: center; gap: 0.75rem; padding: 1rem 2.5rem; font-size: 1.1rem;" target="_blank" rel="noopener">
                 <svg width="24" height="24" viewBox="0 0 100 100" fill="currentColor">
                     <ellipse cx="50" cy="18" rx="25" ry="12"/>
                     <path d="M25 25 C15 30, 10 50, 15 75 C20 95, 80 95, 85 75 C90 50, 85 30, 75 25 C70 30, 30 30, 25 25 Z"/>
@@ -1664,13 +1680,41 @@
                 </svg>
                 Buy $MIND on BAGS.FM
             </a>
-            <div style="margin-top: 0.5rem;">
-                <p style="color: var(--text-muted); font-size: 0.8rem; font-family: 'JetBrains Mono', monospace; word-break: break-all;">
-                    CA: 7X6QxLvNddxsSTt6Ai9c5sMrukEqVpJq2P9J6ujvBAGS
-                </p>
+
+            <!-- Additional Links -->
+            <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center;">
+                <a href="https://solscan.io/token/7X6QxLvNddxsSTt6Ai9c5sMrukEqVpJq2P9J6ujvBAGS" target="_blank" rel="noopener" style="color: var(--text-muted); font-size: 0.9rem; text-decoration: none; display: flex; align-items: center; gap: 0.5rem; transition: color 0.2s;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                    View on Solscan
+                </a>
+                <a href="https://dexscreener.com/solana/7X6QxLvNddxsSTt6Ai9c5sMrukEqVpJq2P9J6ujvBAGS" target="_blank" rel="noopener" style="color: var(--text-muted); font-size: 0.9rem; text-decoration: none; display: flex; align-items: center; gap: 0.5rem; transition: color 0.2s;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 3v18h18"></path>
+                        <path d="m19 9-5 5-4-4-3 3"></path>
+                    </svg>
+                    DexScreener
+                </a>
             </div>
         </div>
     </section>
+
+    <script>
+    function copyCA() {
+        const ca = '7X6QxLvNddxsSTt6Ai9c5sMrukEqVpJq2P9J6ujvBAGS';
+        navigator.clipboard.writeText(ca).then(() => {
+            const btn = document.getElementById('copy-btn');
+            btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+            btn.style.background = '#16a34a';
+            setTimeout(() => {
+                btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy';
+                btn.style.background = 'var(--green-500)';
+            }, 2000);
+        });
+    }
+    </script>
 
     <!-- CTA -->
     <section class="cta-section">
