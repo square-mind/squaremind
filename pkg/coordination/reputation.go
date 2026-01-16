@@ -245,4 +245,3 @@ func (r *ReputationRegistry) AverageReputation() float64 {
 
 	return total / float64(len(r.scores))
 }
-

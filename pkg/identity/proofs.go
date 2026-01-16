@@ -30,11 +30,11 @@ type ActionProof struct {
 
 // ProofEvidence contains the actual proof data
 type ProofEvidence struct {
-	CapabilityType  CapabilityType `json:"capability_type,omitempty"`
-	DelegatorSID    string         `json:"delegator_sid,omitempty"`
-	ConsensusRound  int            `json:"consensus_round,omitempty"`
-	Votes           int            `json:"votes,omitempty"`
-	RequiredVotes   int            `json:"required_votes,omitempty"`
+	CapabilityType CapabilityType `json:"capability_type,omitempty"`
+	DelegatorSID   string         `json:"delegator_sid,omitempty"`
+	ConsensusRound int            `json:"consensus_round,omitempty"`
+	Votes          int            `json:"votes,omitempty"`
+	RequiredVotes  int            `json:"required_votes,omitempty"`
 }
 
 // NewSignedAction creates a new signed action
