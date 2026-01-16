@@ -75,7 +75,21 @@ sqm demo --api-key your-key-here
 sqm demo
 ```
 
-This runs a quick test to confirm your API key works.
+This runs an interactive demo that:
+- Creates a collective of AI agents
+- Assigns cryptographic identities
+- Demonstrates fair task markets
+- Shows real-time coordination
+
+### Swarm Intelligence
+
+Try the swarm command for complex multi-agent tasks:
+
+```bash
+sqm swarm "Design a microservices architecture for an e-commerce platform"
+```
+
+This spawns 5 specialized agents (Researcher, Architect, Implementer, Critic, Synthesizer) that work together through parallel coordination, demonstrating emergent collective intelligence.
 
 ### Create a Collective
 

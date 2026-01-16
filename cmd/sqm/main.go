@@ -341,59 +341,6 @@ var configCmd = &cobra.Command{
 	Short: "Configuration management",
 }
 
-var demoCmd = &cobra.Command{
-	Use:   "demo",
-	Short: "Run a quick demo to verify your API key works",
-	Long: `Run a simple demo that spawns an agent and has it complete a task.
-This verifies your API key is configured correctly.
-
-Example:
-  sqm demo --api-key YOUR_ANTHROPIC_API_KEY
-
-Or set the environment variable:
-  export ANTHROPIC_API_KEY=YOUR_KEY
-  sqm demo`,
-	Run: func(cmd *cobra.Command, args []string) {
-		if provider == nil {
-			fmt.Fprintln(os.Stderr, "\n  Error: No API key configured.")
-			fmt.Fprintln(os.Stderr, "\n  Set your API key using one of these methods:")
-			fmt.Fprintln(os.Stderr, "    1. CLI flag:    sqm demo --api-key YOUR_KEY")
-			fmt.Fprintln(os.Stderr, "    2. Environment: export ANTHROPIC_API_KEY=YOUR_KEY")
-			fmt.Fprintln(os.Stderr, "    3. Config file: ~/.squaremind/config.yaml")
-			fmt.Fprintln(os.Stderr, "")
-			os.Exit(1)
-		}
-
-		fmt.Println("\n  Squaremind Demo")
-		fmt.Println("  " + strings.Repeat("-", 40))
-		fmt.Printf("  Provider: %s\n", provider.Name())
-		fmt.Println("  Running demo...\n")
-
-		// Create a simple completion request
-		ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
-		defer cancel()
-
-		req := llm.CompletionRequest{
-			Prompt:    "Say 'Hello from Squaremind!' in a creative way, then briefly explain what a multi-agent AI system is in one sentence.",
-			MaxTokens: 150,
-		}
-
-		fmt.Println("  Sending request to LLM...")
-		resp, err := provider.Complete(ctx, req)
-		if err != nil {
-			fmt.Fprintf(os.Stderr, "\n  Error: %v\n\n", err)
-			os.Exit(1)
-		}
-
-		fmt.Println("\n  Response from AI:")
-		fmt.Println("  " + strings.Repeat("-", 40))
-		fmt.Printf("  %s\n", resp.Content)
-		fmt.Println("  " + strings.Repeat("-", 40))
-		fmt.Printf("\n  Tokens used: %d\n", resp.TokensUsed)
-		fmt.Println("  Demo complete!\n")
-	},
-}
-
 var configSetCmd = &cobra.Command{
 	Use:   "set [key] [value]",
 	Short: "Set a configuration value",
@@ -448,7 +395,7 @@ func init() {
 	rootCmd.AddCommand(taskCmd)
 	rootCmd.AddCommand(agentCmd)
 	rootCmd.AddCommand(configCmd)
-	rootCmd.AddCommand(demoCmd)
+	// demoCmd is added in demo.go's init()
 }
 
 func main() {
